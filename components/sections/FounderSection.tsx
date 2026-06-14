@@ -56,7 +56,7 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick }) => {
             >
               <div className="relative w-full h-full overflow-hidden flex items-center justify-center">
                 <img 
-                  src="/slides/业务介绍_2026_zhu_02.webp" 
+                  src="slides/业务介绍_2026_zhu_02.webp" 
                   alt="Zhu Yuanshuang Digital Studio" 
                   className="w-full h-full object-contain transition-transform duration-[1.2s] hover:scale-102"
                 />

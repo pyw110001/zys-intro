@@ -128,6 +128,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
 
   return {
+    base: './',
     server: {
       port: 4050,
       host: '0.0.0.0',
