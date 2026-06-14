@@ -1,21 +1,16 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
-*/
-
-
 import React, { useEffect, useState } from 'react';
 import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 const CustomCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
+  const [cursorText, setCursorText] = useState('');
   
   // Initialize off-screen to prevent flash
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
   
   // Smooth spring animation
-  const springConfig = { damping: 20, stiffness: 350, mass: 0.1 }; 
+  const springConfig = { damping: 30, stiffness: 400, mass: 0.1 }; 
   const x = useSpring(mouseX, springConfig);
   const y = useSpring(mouseY, springConfig);
 
@@ -29,6 +24,13 @@ const CustomCursor: React.FC = () => {
                         target.closest('a') || 
                         target.closest('[data-hover="true"]');
       setIsHovering(!!clickable);
+      
+      if (clickable) {
+        const text = clickable.getAttribute('data-cursor-text');
+        setCursorText(text || 'EXPLORE');
+      } else {
+        setCursorText('');
+      }
     };
 
     window.addEventListener('mousemove', updateMousePosition, { passive: true });
@@ -40,27 +42,24 @@ const CustomCursor: React.FC = () => {
       className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference flex items-center justify-center hidden md:flex will-change-transform"
       style={{ x, y, translateX: '-50%', translateY: '-50%' }}
     >
-      {/* This div is the actual cursor "body" and will handle the scaling and text centering */}
-      {/* Changed base size to 80px diameter (40px radius) */}
       <motion.div
-        className="relative rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.3)] flex items-center justify-center"
-        style={{ width: 80, height: 80 }}
+        className="relative rounded-full border border-white flex items-center justify-center bg-transparent"
         animate={{
-          // Scaled by 1.5 to become 120px diameter (60px radius) when hovering
-          scale: isHovering ? 1.5 : 1, 
+          width: isHovering ? 80 : 36,
+          height: isHovering ? 80 : 36,
+          backgroundColor: isHovering ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0)',
         }}
-        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+        transition={{ type: "spring", stiffness: 350, damping: 28 }}
       >
-        {/* Text directly inside the scalable cursor body, centered by flex parent */}
         <motion.span 
-          className="z-10 text-black font-black uppercase tracking-widest text-sm overflow-hidden whitespace-nowrap"
+          className="z-10 text-black font-mono font-bold uppercase tracking-wider text-[10px]"
           initial={{ opacity: 0 }}
           animate={{ 
             opacity: isHovering ? 1 : 0,
           }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
         >
-          View
+          {cursorText}
         </motion.span>
       </motion.div>
     </motion.div>

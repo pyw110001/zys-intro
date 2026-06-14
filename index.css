@@ -16,8 +16,8 @@
 
   body {
     font-family: 'Space Grotesk', sans-serif;
-    background-color: #31326f;
-    color: #fff;
+    background-color: #050706;
+    color: #f3f0e8;
     overflow-x: hidden;
   }
 
@@ -41,6 +41,11 @@
 
   .scrollbar-thin {
     scrollbar-width: thin;
-    scrollbar-color: rgb(79 183 179 / 0.4) transparent;
+    scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+  }
+
+  .editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 }

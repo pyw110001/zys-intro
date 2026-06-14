@@ -5,20 +5,23 @@
 export interface Slide {
   num: string;
   image: string;
+  images?: string[];
   title: string;
   content: string;
 }
 
+
 export const SLIDES: Slide[] = [
   {
     "num": "04",
-    "image": "/slides/业务介绍_2026_zhu_04.webp",
+    "image": "/slides/archive_slide_04.png",
     "title": "机械臂控制的层积三维打印技术",
     "content": "# 机械臂控制的层积三维打印技术 (Layered 3D Printing Technology Controlled by Robotic Arm)\n\n**3DPRINTING ROBOTIC ARM**\n\n利用多轴机械臂**增材制造工艺**配合可循环、高性能的塑料颗粒材料实现层积三维打印。\n(Utilizing multi-axis robotic arm **additive manufacturing process** in conjunction with recyclable, high-performance plastic pellet materials to achieve layered 3D printing.)\n\n## 创新应用点 (Innovative Application Points)\n\n*   参数化设计+仿真模拟+打印一体化 (Parametric design + simulation + integrated printing)\n*   基于多轴机械臂的层积打印技术能够以较短的交付周期实现**大尺寸3D零部件**的制造，实现时间和成本的节约 (Layered printing technology based on multi-axis robotic arms can achieve the manufacturing of **large-sized 3D parts** with a shorter delivery cycle, saving time and cost)\n*   基于数据信息的精确控制 (Precise control based on data information)\n*   复合材料建造 (Composite material construction)\n\n## 图片说明 (Image Descriptions)\n\n*   **顶部图片 (Top Images):**\n    *   左侧四根柱状结构展示\n    *   右侧金色拱门内部展示空间及家具\n    *   **描述文字:** 第46届中国 (上海) 国际家具博览会ADD (增材数字设计) 特展 (The 46th China (Shanghai) International Furniture Fair ADD (Additive Digital Design) Special Exhibition)\n\n*   **底部图片 (Bottom Images):**\n    *   左侧两件流线型设计椅子/雕塑，色彩鲜艳（粉色渐变和蓝白渐变）\n    *   右侧一件户外垂直照明雕塑装置\n    *   **描述文字:** “艺术介入城市空间”系列项目—异质越野: 多伦路《重树》 (\"Art Intervention in Urban Space\" series project - Heterogeneous Off-road: Duolun Road \"Replant Tree\")\n\n---"
   },
   {
     "num": "05",
-    "image": "/slides/业务介绍_2026_zhu_05.webp",
+    "image": "/slides/archive_slide_05_1.jpg",
+    "images": ['/slides/archive_slide_05_1.jpg', '/slides/archive_slide_05_2.jpg'],
     "title": "Large - Scale 3D Printing",
     "content": "# Large - Scale 3D Printing\n\n## 异形雕塑\n\n*   ASA材料作为基材，根据不同应用场景混合不同的添加剂（碳纤、阻燃剂等等）\n    *   *Translation:* ASA material is used as the base material, and different additives (carbon fiber, flame retardants, etc.) are mixed according to different application scenarios.\n\n## SCULPTURE\n\n---"
   },
@@ -30,19 +33,20 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "07",
-    "image": "/slides/业务介绍_2026_zhu_07.webp",
+    "image": "/slides/archive_slide_07.png",
     "title": "Material:",
     "content": "# Technology\n*   3DPRINTING ROBOTIC ARM\n\n# Project Details\n*   **Material:** PC复合材料 (PC composite material)\n*   **Location:** 江门 (Jiangmen)\n\n---"
   },
   {
     "num": "08",
-    "image": "/slides/业务介绍_2026_zhu_08.webp",
+    "image": "/slides/archive_slide_08_1.jpg",
+    "images": ['/slides/archive_slide_08_1.jpg', '/slides/archive_slide_08_2.png'],
     "title": "釜山汽车现代艺术中心 (Busan Car Modern Art Center)",
     "content": "# Slide Content\n\n*   釜山汽车现代艺术中心 (Busan Car Modern Art Center)\n*   3DPRINTING ROBOTIC ARM\n\n---"
   },
   {
     "num": "09",
-    "image": "/slides/业务介绍_2026_zhu_09.webp",
+    "image": "/slides/archive_slide_09.jpg",
     "title": "# Exhibition Information",
     "content": "## Exhibition Information\n\n*   **Header:** EXHIBITION PLANNING\n*   **Event Name (Chinese):** 家博会 (Jiābóhuì)\n\n## Central Display Content\n\n*   **Main Title:** ROBOTIC FABRICATION\n*   **Subtitle:** SMART MATERIALS\n*   **Subtitle (Chinese):** 机器人制造 / 智能材料 (Jīqìrén zhìzào / Zhìnéng cáiliào)\n*   **Participating Entities/Brands (Logos):**\n    *   XUBERANCE\n    *   STAL\n\n---"
   },
@@ -60,7 +64,7 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "12",
-    "image": "/slides/业务介绍_2026_zhu_12.webp",
+    "image": "/slides/archive_slide_12.jpg",
     "title": "Company Name:",
     "content": "# Slide Content\n\n## Title\nEXHIBITION PLANNING\n\n## Company Information\n*   **Company Name:** ESTEE LAUDER COMPANIES\n*   **Chinese Name:** 雅诗兰黛集团\n\n## Event Details\n*   **Year & Event:** 2024 进博会\n\n---"
   },
@@ -102,7 +106,7 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "19",
-    "image": "/slides/业务介绍_2026_zhu_19.webp",
+    "image": "/slides/archive_slide_19.jpg",
     "title": "Title",
     "content": "# Slide Content\n\n## Title\n3DPRINTING ROBOTIC ARM\n\n---"
   },
@@ -150,13 +154,14 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "27",
-    "image": "/slides/业务介绍_2026_zhu_27.webp",
+    "image": "/slides/archive_slide_27.png",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Image Description / Title\n*   城市博览会互动展墙 (City Expo Interactive Exhibition Wall)\n\n---"
   },
   {
     "num": "28",
-    "image": "/slides/业务介绍_2026_zhu_28.webp",
+    "image": "/slides/archive_slide_28_1.gif",
+    "images": ['/slides/archive_slide_28_1.gif', '/slides/archive_slide_28_2.gif'],
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Event Examples\n\n*   **Left Image Caption:** 动漫节活动\n    *   *Translation:* Animation Festival Event\n*   **Right Image Caption:** SMG开幕式活动\n    *   *Translation:* SMG Opening Ceremony Event\n\n---"
   },
@@ -168,43 +173,43 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "30",
-    "image": "/slides/业务介绍_2026_zhu_30.webp",
+    "image": "/slides/archive_slide_30.png",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n*   壹丰广场绿地数字化改造\n\n---"
   },
   {
     "num": "31",
-    "image": "/slides/业务介绍_2026_zhu_31.webp",
+    "image": "/slides/archive_slide_31.png",
     "title": "Slide Title",
     "content": "# Slide Title\n\n*   SHOWCASE\n\n# Project/Initiative Description\n\n*   豫园老街数字化改造 (Yuyuan Old Street Digital Transformation)\n\n---"
   },
   {
     "num": "32",
-    "image": "/slides/业务介绍_2026_zhu_32.webp",
+    "image": "/slides/archive_slide_32.png",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Content Details\n\n*   **Signage within image (top left):**\n    *   牛肉面 (Niúròu Miàn) - Beef Noodles\n*   **Caption (bottom right):**\n    *   豫园和丰楼数字化改造 (Yùyuán Hé Fēnglóu Shùzìhuà Gǎizào) - Yu Garden and Fenglou Digital Transformation\n\n---"
   },
   {
     "num": "33",
-    "image": "/slides/业务介绍_2026_zhu_33.webp",
+    "image": "/slides/archive_slide_33.png",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Event Details\n\n*   **Event Name:** 2024上海国际光影节 (2024 Shanghai International Light and Shadow Festival)\n*   **Theme/Slogan:** 黄浦 - 点亮光明 (Huangpu - Light Up the Brightness)\n\n---"
   },
   {
     "num": "34",
-    "image": "/slides/业务介绍_2026_zhu_34.webp",
+    "image": "/slides/archive_slide_34.png",
     "title": "Title:",
     "content": "# Slide Content\n\n## Showcase Event\n\n*   **Title:** SHOWCASE\n*   **Event Details:**\n    *   2025上海国际光影节 (2025 Shanghai International Light Festival)\n    *   黄浦 - 光之秘境 (Huangpu - Secret Realm of Light)\n\n## On-Site Text\n\n*   **Building Projection:** WELCOME\n\n---"
   },
   {
     "num": "35",
-    "image": "/slides/业务介绍_2026_zhu_35.webp",
+    "image": "/slides/archive_slide_35.png",
     "title": "Title",
     "content": "# Slide Content\n\n## Title\nOTHER\n\n---"
   },
   {
     "num": "36",
-    "image": "/slides/业务介绍_2026_zhu_36.webp",
+    "image": "/slides/archive_slide_36.gif",
     "title": "AR",
     "content": "# AR\n\n## 项目详情 (Project Details)\n\n*   **项目名称 (Project Name):** 上海城市规划展览馆AR沙盘 (Shanghai Urban Planning Exhibition Hall AR Sandbox)\n*   **识别物 (Identifiable Object):** 图像触发后与真实世界铆钉 (Image triggered and real-world riveted)\n*   **内容 (Content):** 实体沙盘与真实沙盘结合，通过图像、声音等元素的融合实现真实沙盘的交互式呈现。(Combining physical sandbox with real sandbox, achieving interactive presentation of the real sandbox through the fusion of elements like images and sound.)\n\n## 提供价值 (Value Provided)\n\n*   通过数字孪生构建了一个可交互的增强现实场景，展示上海城市规划与建设成就的专业性和创新性，增强参观者对上海城市发展变化的认知和体验。(By building an interactive augmented reality scene through digital twin technology, it demonstrates the professionalism and innovation of Shanghai's urban planning and construction achievements, enhancing visitors' understanding and experience of Shanghai's urban development changes.)\n\n---"
   },
@@ -216,7 +221,7 @@ export const SLIDES: Slide[] = [
   },
   {
     "num": "38",
-    "image": "/slides/业务介绍_2026_zhu_38.webp",
+    "image": "/slides/archive_slide_38.jpg",
     "title": "AR",
     "content": "# AR\n\n## 项目信息\n*   **项目名称:** 远东集团上海展厅数字沙盘\n*   **识别物:** 图像触发后与真实世界铆钉\n*   **内容:** 实体沙盘与真实沙盘结合，通过图像、声音等元素的融合实现真实沙盘的交互式呈现。\n\n## 提供价值\n*   提供更直观、立体的建筑结构和设计概念展示。\n*   通过AR技术，客户可以更全面地掌握建筑内部和外部结构，以及设计理念。\n*   这将有助于客户对项目的整体了解和理解。\n\n---"
   },

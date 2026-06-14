@@ -1,9 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
-*/
-
-
 import React, { useState, useRef, useEffect } from 'react';
 import { MessageCircle, X, Send, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -13,7 +7,7 @@ import { ChatMessage } from '../types';
 const AIChat: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
-    { role: 'model', text: '您好！我是 ZYS 数字艺术与智能建造工作室的 AI 业务顾问 LUMI。我们可以为您解答 3D 打印建造、交互装置艺术、AR 沙盘及智能数字生命等任何业务问题。✨' }
+    { role: 'model', text: '您好！我是 ZYS 数字艺术与智能建造工作室的 AI 业务顾问 LUMI。我可以为您解答 3D 打印建造、交互装置艺术、AR 沙盘及智能数字生命等任何业务问题。' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +35,6 @@ const AIChat: React.FC = () => {
     setInput('');
     setIsLoading(true);
 
-    // Slight delay to allow state update to render before scrolling
     setTimeout(scrollToBottom, 100);
 
     const responseText = await sendMessageToGemini(input, [...messages, userMessage]);
@@ -51,30 +44,35 @@ const AIChat: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end pointer-events-auto">
+    <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-50 flex flex-col items-end pointer-events-auto select-none">
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            initial={{ opacity: 0, y: 15, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 20, scale: 0.9 }}
-            className="mb-4 w-[90vw] md:w-96 bg-[#14152e]/95 backdrop-blur-xl border border-white/10 rounded-2xl overflow-hidden shadow-2xl shadow-[#4fb7b3]/15"
+            exit={{ opacity: 0, y: 15, scale: 0.95 }}
+            className="mb-4 w-[90vw] md:w-96 bg-panel border border-white/10 overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-[#14152e] to-[#637ab9]/30 p-4 flex justify-between items-center border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#a8fbd3] animate-pulse" />
-                <h3 className="font-heading font-bold text-white tracking-wider">LUMI AI</h3>
+            <div className="bg-[#0e1715] p-4 flex justify-between items-center border-b border-white/5">
+              <div className="flex items-center gap-2.5">
+                <Sparkles className="w-4 h-4 text-[#9de8cf]" />
+                <h3 className="font-mono text-xs font-bold text-white tracking-widest">LUMI CONSULTANT</h3>
               </div>
-              <button onClick={() => setIsOpen(false)} className="text-white/50 hover:text-white" data-hover="true">
-                <X className="w-5 h-5" />
+              <button 
+                onClick={() => setIsOpen(false)} 
+                className="text-white/40 hover:text-white transition-colors cursor-pointer" 
+                data-hover="true"
+                data-cursor-text="CLOSE"
+              >
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             {/* Messages */}
             <div 
               ref={chatContainerRef}
-              className="h-64 md:h-80 overflow-y-auto p-4 space-y-3 scroll-smooth"
+              className="h-64 md:h-80 overflow-y-auto p-4 space-y-4 scroll-smooth"
             >
               {messages.map((msg, idx) => (
                 <div
@@ -82,10 +80,10 @@ const AIChat: React.FC = () => {
                   className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[85%] p-3 rounded-lg text-sm ${
+                    className={`max-w-[85%] p-3 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#4fb7b3] text-black rounded-tr-none font-medium'
-                        : 'bg-white/10 text-gray-200 rounded-tl-none border border-white/5'
+                        ? 'bg-[#f3f0e8] text-[#050706] font-medium'
+                        : 'bg-white/5 text-[#8d928d] border border-white/5'
                     }`}
                   >
                     {msg.text}
@@ -94,17 +92,17 @@ const AIChat: React.FC = () => {
               ))}
               {isLoading && (
                 <div className="flex justify-start">
-                  <div className="bg-white/10 p-3 rounded-lg rounded-tl-none flex gap-1">
-                    <span className="w-1.5 h-1.5 bg-[#4fb7b3] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-[#4fb7b3] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-[#4fb7b3] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  <div className="bg-white/5 p-3 flex gap-1 border border-white/5">
+                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                 </div>
               )}
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/10 bg-black/40">
+            <div className="p-3 border-t border-white/5 bg-[#080a09]">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -117,16 +115,17 @@ const AIChat: React.FC = () => {
                     }
                   }}
                   placeholder="咨询业务、案例或合作流程..."
-                  className="flex-1 bg-transparent text-white placeholder-white/30 text-sm focus:outline-none"
+                  className="flex-1 bg-transparent text-white placeholder-white/20 text-xs focus:outline-none px-2 py-1"
                 />
                 <button
                   onClick={handleSend}
                   disabled={isLoading || !input.trim()}
-                  className="bg-[#4fb7b3] p-2 rounded-lg hover:bg-[#a8fbd3] hover:text-black transition-colors disabled:opacity-50"
+                  className="bg-white text-black p-2 hover:bg-[#9de8cf] transition-colors disabled:opacity-30 cursor-pointer"
                   data-hover="true"
+                  data-cursor-text="SEND"
                   aria-label="Send message"
                 >
-                  <Send className="w-4 h-4 text-white" />
+                  <Send className="w-3.5 h-3.5" />
                 </button>
               </div>
             </div>
@@ -136,17 +135,18 @@ const AIChat: React.FC = () => {
 
       {/* Toggle Button */}
       <motion.button
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-gradient-to-tr from-[#4fb7b3] to-[#637ab9] flex items-center justify-center shadow-lg shadow-[#4fb7b3]/30 border border-white/20 z-50 group"
+        className="w-12 h-12 md:w-14 md:h-14 bg-panel border border-white/10 flex items-center justify-center shadow-xl z-50 cursor-pointer text-white hover:border-white/30 hover:bg-[#0e1715] transition-colors"
         data-hover="true"
+        data-cursor-text={isOpen ? "CLOSE" : "CHAT"}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}
       >
         {isOpen ? (
-          <X className="w-5 h-5 md:w-6 md:h-6 text-white" />
+          <X className="w-5 h-5 text-white" />
         ) : (
-          <MessageCircle className="w-5 h-5 md:w-6 md:h-6 text-white group-hover:animate-bounce" />
+          <MessageCircle className="w-5 h-5 text-white" />
         )}
       </motion.button>
     </div>
