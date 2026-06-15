@@ -30,7 +30,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
   onSubmit,
 }) => {
   return (
-    <section id="contact" className="py-24 md:py-36 border-t border-white/10 px-6 md:px-12 bg-[#080a09]/10">
+    <section id="contact" className="py-12 md:py-16 px-6 md:px-12 bg-[#080a09]/10 flex-1 flex flex-col justify-center">
       <div className="max-w-4xl mx-auto">
         <SectionLabel num="06" title="Contact" className="mb-16" />
 

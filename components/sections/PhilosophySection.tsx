@@ -3,7 +3,7 @@ import SectionLabel from '../ui/SectionLabel';
 
 const PhilosophySection: React.FC = () => {
   return (
-    <section id="philosophy" className="py-24 md:py-36 border-t border-white/10 px-6 md:px-12">
+    <section id="philosophy" className="min-h-screen flex flex-col justify-center border-t border-white/10 px-6 md:px-12 snap-start snap-always">
       <div className="max-w-7xl mx-auto">
         <SectionLabel num="02" title="Philosophy" className="mb-12" />
         

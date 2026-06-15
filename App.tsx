@@ -17,6 +17,7 @@ const App: React.FC = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
@@ -39,16 +40,47 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
+  // Track active section for side indicators using Intersection Observer
+  useEffect(() => {
+    const container = document.getElementById('snap-container');
+    const observerOptions = {
+      root: container,
+      rootMargin: '-30% 0px -30% 0px', // triggers when the section is centered in the viewport
+      threshold: 0.1
+    };
+
+    const sections = ['hero', 'philosophy', 'services', 'slides', 'about', 'contact-section'];
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    // Wait a brief tick to ensure DOM elements exist
+    const timer = setTimeout(() => {
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
+    }, 100);
+
+    return () => {
+      clearTimeout(timer);
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.unobserve(el);
+      });
+    };
+  }, []);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
       });
     }
   };
@@ -63,26 +95,69 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen text-white selection:bg-[#9de8cf] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
+    <div className="relative min-h-screen text-white selection:bg-[#9de8cf] selection:text-black cursor-auto md:cursor-none overflow-x-hidden bg-[#050706]">
       <CustomCursor />
       <ThreeBackground />
       
       {/* Navigation */}
       <NavBar scrollToSection={scrollToSection} />
 
-      {/* Main Content Layout */}
-      <main className="relative z-10">
+      {/* Floating Vertical Navigation Indicators */}
+      <div className="fixed right-6 md:right-12 top-1/2 -translate-y-1/2 z-[40] hidden md:flex flex-col gap-6 select-none mix-blend-difference">
+        {[
+          { id: 'hero', num: '01', name: 'Intro' },
+          { id: 'philosophy', num: '02', name: 'Philosophy' },
+          { id: 'services', num: '03', name: 'Services' },
+          { id: 'slides', num: '04', name: 'Slides' },
+          { id: 'about', num: '05', name: 'Creator' },
+          { id: 'contact-section', num: '06', name: 'Contact' }
+        ].map((item) => {
+          const isActive = activeSection === item.id;
+          return (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="group flex items-center justify-end gap-3 text-right bg-transparent border-0 cursor-pointer focus:outline-none"
+              aria-label={`Go to section ${item.name}`}
+            >
+              <span className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${
+                isActive ? 'text-[#9de8cf] scale-105 opacity-100' : 'text-[#8d928d]/40 opacity-0 group-hover:opacity-100 group-hover:text-white/80'
+              }`}>
+                {item.name}
+              </span>
+              <div className="relative flex items-center justify-center w-3 h-3">
+                <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
+                  isActive ? 'bg-[#9de8cf] scale-150' : 'bg-white/20 group-hover:bg-white/60'
+                }`} />
+                {isActive && (
+                  <motion.div
+                    layoutId="activeDotOutline"
+                    className="absolute inset-0 border border-[#9de8cf] rounded-full scale-125"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Main Content Layout - Scroll Snap Container */}
+      <main className="relative z-10 h-screen overflow-y-auto snap-y snap-mandatory scroll-smooth" id="snap-container">
         {/* 01 / HERO */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          className="snap-start snap-always min-h-screen"
         >
           <HeroSection scrollToSection={scrollToSection} />
         </motion.div>
 
         {/* 02 / PHILOSOPHY */}
         <motion.div
+          id="philosophy"
+          className="snap-start snap-always min-h-screen flex items-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -93,6 +168,8 @@ const App: React.FC = () => {
 
         {/* 03 / SERVICES */}
         <motion.div
+          id="services"
+          className="snap-start snap-always min-h-screen flex items-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -103,6 +180,8 @@ const App: React.FC = () => {
 
         {/* 04 / PROJECT ARCHIVE */}
         <motion.div
+          id="slides"
+          className="snap-start snap-always min-h-screen flex items-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -117,6 +196,8 @@ const App: React.FC = () => {
 
         {/* 05 / FOUNDER */}
         <motion.div
+          id="about"
+          className="snap-start snap-always min-h-screen flex items-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
@@ -125,37 +206,43 @@ const App: React.FC = () => {
           <FounderSection onImageClick={() => { setActiveSlideIndex(0); setIsLightboxOpen(true); }} />
         </motion.div>
 
-        {/* 06 / CONTACT */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        {/* 06 / CONTACT + FOOTER (Combined in one Snap Section) */}
+        <div
+          id="contact-section"
+          className="snap-start snap-always min-h-screen flex flex-col justify-between relative overflow-hidden border-t border-white/10 bg-[#080a09]/10"
         >
-          <ContactSection 
-            formSubmitted={formSubmitted}
-            formData={formData}
-            setFormData={setFormData}
-            onSubmit={handleFormSubmit}
-          />
-        </motion.div>
-      </main>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="flex-1 flex flex-col justify-center"
+          >
+            <ContactSection 
+              formSubmitted={formSubmitted}
+              formData={formData}
+              setFormData={setFormData}
+              onSubmit={handleFormSubmit}
+            />
+          </motion.div>
 
-      {/* FOOTER */}
-      <footer className="relative z-10 border-t border-white/5 py-12 md:py-16 bg-[#050706]">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          <div>
-             <div className="font-heading text-lg font-bold tracking-tight mb-4 text-white">Z-LAB</div>
-             <p className="text-[10px] font-mono text-[#8d928d] tracking-wider uppercase">
-               © 2026 朱元双数字艺术与智能建造工作室. All rights reserved.
-             </p>
-          </div>
-          
-          <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#8d928d] tracking-widest uppercase">
-            <span className="text-[#9de8cf]">Art meets Science. Built with precision.</span>
-          </div>
+          {/* FOOTER */}
+          <footer className="border-t border-white/5 py-8 md:py-12 bg-[#050706]">
+            <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+              <div>
+                 <div className="font-heading text-lg font-bold tracking-tight mb-2 text-white">Z-LAB</div>
+                 <p className="text-[10px] font-mono text-[#8d928d] tracking-wider uppercase">
+                   © 2026 朱元双数字艺术与智能建造工作室. All rights reserved.
+                 </p>
+              </div>
+              
+              <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#8d928d] tracking-widest uppercase">
+                <span className="text-[#9de8cf]">Art meets Science. Built with precision.</span>
+              </div>
+            </div>
+          </footer>
         </div>
-      </footer>
+      </main>
 
       {/* SERVICE DETAIL MODAL (Redesigned for Editorial Look) */}
       <AnimatePresence>
