@@ -128,68 +128,54 @@ export const SLIDES: Slide[] = [
   {
     "num": "16",
     "category": "interactive",
-    "image": "slides/新媒体艺术/3/archive_slide_28_1.gif",
-    "title": "SHOWCASE",
-    "content": "# SHOWCASE\n\n## Event Examples\n\n*   **Left Image Caption:** 动漫节活动\n    *   *Translation:* Animation Festival Event\n*   **Right Image Caption:** SMG开幕式活动\n    *   *Translation:* SMG Opening Ceremony Event\n\n---"
-  },
-  {
-    "num": "17",
-    "category": "interactive",
-    "image": "slides/新媒体艺术/4/archive_slide_28_2.gif",
-    "title": "SHOWCASE",
-    "content": "# SHOWCASE\n\n## Event Examples\n\n*   **Left Image Caption:** 动漫节活动\n    *   *Translation:* Animation Festival Event\n*   **Right Image Caption:** SMG开幕式活动\n    *   *Translation:* SMG Opening Ceremony Event\n\n---"
-  },
-  {
-    "num": "18",
-    "category": "interactive",
     "image": "slides/新媒体艺术/5/9ccc79f0076e40036fb35bc962fd3f1d.gif",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n*   壹丰广场绿地数字化改造\n\n---"
   },
   {
-    "num": "19",
+    "num": "17",
     "category": "interactive",
     "image": "slides/新媒体艺术/6/豫园老街焕新登场独家_20251014123606.gif",
     "title": "Slide Title",
     "content": "# Slide Title\n\n*   SHOWCASE\n\n# Project/Initiative Description\n\n*   豫园老街数字化改造 (Yuyuan Old Street Digital Transformation)\n\n---"
   },
   {
-    "num": "20",
+    "num": "18",
     "category": "interactive",
     "image": "slides/新媒体艺术/7/archive_slide_32.png",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Content Details\n\n*   **Signage within image (top left):**\n    *   牛肉面 (Niúròu Miàn) - Beef Noodles\n*   **Caption (bottom right):**\n    *   豫园和丰楼数字化改造 (Yùyuán Hé Fēnglóu Shùzìhuà Gǎizào) - Yu Garden and Fenglou Digital Transformation\n\n---"
   },
   {
-    "num": "21",
+    "num": "19",
     "category": "interactive",
     "image": "slides/新媒体艺术/8/mapping.gif",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Event Details\n\n*   **Event Name:** 2024上海国际光影节 (2024 Shanghai International Light and Shadow Festival)\n*   **Theme/Slogan:** 黄浦 - 点亮光明 (Huangpu - Light Up the Brightness)\n\n---"
   },
   {
-    "num": "22",
+    "num": "20",
     "category": "interactive",
     "image": "slides/新媒体艺术/9/压轴大秀光之秘境来了_20251014123716.gif",
     "title": "Title:",
     "content": "# Slide Content\n\n## Showcase Event\n\n*   **Title:** SHOWCASE\n*   **Event Details:**\n    *   2025上海国际光影节 (2025 Shanghai International Light Festival)\n    *   黄浦 - 光之秘境 (Huangpu - Secret Realm of Light)\n\n## On-Site Text\n\n*   **Building Projection:** WELCOME\n\n---"
   },
   {
-    "num": "23",
+    "num": "21",
     "category": "interactive",
     "image": "slides/新媒体艺术/10/业务介绍_2026_zhu_29.webp",
     "title": "SHOWCASE",
     "content": "# SHOWCASE\n\n## Digital Display Content\n*   **Brand:** Garner\n*   **Hotel Affiliation:** AN IHG HOTEL\n*   **Location/Tagline:** OSAKA | TOKYO\n*   **Copyright:** COPYRIGHT RESERVED (partially visible)\n\n## Overall Description\n*   大阪IHG旗下酒店艺术装置 (Osaka IHG Hotels Art Installation)\n\n---"
   },
   {
-    "num": "24",
+    "num": "22",
     "category": "interactive",
     "image": "slides/新媒体艺术/11/led_particles.gif",
     "title": "佰特LED创意屏视觉 (Byte LED Creative Screen VFX)",
     "content": "# SHOWCASE\n\n## 项目名称\n*   佰特LED创意屏视觉特效与粒子动态演绎\n\n## 核心内容\n*   将高精度的实时粒子系统与定制化造型的LED创意屏幕硬件相结合，通过动态粒子形态的演变与艺术级的光影色彩渲染，赋予物理显示载体以流动的数字化生命力，创造极具未来感与视觉冲击力的新媒体空间装置体验。\n\n---"
   },
   {
-    "num": "25",
+    "num": "23",
     "category": "interactive",
     "image": "slides/新媒体艺术/12/Tsinghua_Fiber_with Audio_2_2.gif",
     "images": [
@@ -200,7 +186,7 @@ export const SLIDES: Slide[] = [
     "content": "# SHOWCASE\n\n## 项目概览\n*   **项目名称:** 清华大学新媒体纤维光影交互装置\n*   **核心技术:** 光纤传导与动态声音感应控制系统\n*   **艺术表现:** 将发光光纤材料与声学传感器相结合，使实体艺术纤维装置在暗空间中随声音起伏律动，创造沉浸式的数字光影视听空间。\n\n---"
   },
   {
-    "num": "26",
+    "num": "24",
     "category": "interactive",
     "image": "slides/新媒体艺术/13/人物奔跑特效_2.gif",
     "images": [
@@ -211,35 +197,35 @@ export const SLIDES: Slide[] = [
     "content": "# SHOWCASE\n\n## 项目概念\n*   **粒子形态动态演变**: 通过 Houdini 粒子系统与虚幻引擎的实时动力学演算，将人物跑动姿态转化为飘逸的粒子流沙与流光特效。\n*   **核心亮点**: 探索虚拟人体骨骼驱动在三维空间中的运动美学，将物理学边界与动态新媒体视觉艺术完美融合。\n\n---"
   },
   {
-    "num": "27",
+    "num": "25",
     "category": "sandbox",
     "image": "slides/增强现实/1/archive_slide_36.gif",
     "title": "AR",
     "content": "# AR\n\n## 项目详情 (Project Details)\n\n*   **项目名称 (Project Name):** 上海城市规划展览馆AR沙盘 (Shanghai Urban Planning Exhibition Hall AR Sandbox)\n*   **识别物 (Identifiable Object):** 图像触发后与真实世界铆钉 (Image triggered and real-world riveted)\n*   **内容 (Content):** 实体沙盘与真实沙盘结合，通过图像、声音等元素的融合实现真实沙盘的交互式呈现。(Combining physical sandbox with real sandbox, achieving interactive presentation of the real sandbox through the fusion of elements like images and sound.)\n\n## 提供价值 (Value Provided)\n\n*   通过数字孪生构建了一个可交互的增强现实场景，展示上海城市规划与建设成就的专业性和创新性，增强参观者对上海城市发展变化的认知和体验。(By building an interactive augmented reality scene through digital twin technology, it demonstrates the professionalism and innovation of Shanghai's urban planning and construction achievements, enhancing visitors' understanding and experience of Shanghai's urban development changes.)\n\n---"
   },
   {
-    "num": "28",
+    "num": "26",
     "category": "sandbox",
     "image": "slides/增强现实/2/VIDEO_0910.gif",
     "title": "AR",
     "content": "# AR\n\n## 项目信息\n*   **项目名称:** 远东集团上海展厅数字沙盘\n*   **识别物:** 图像触发后与真实世界铆钉\n*   **内容:** 实体沙盘与真实沙盘结合，通过图像、声音等元素的融合实现真实沙盘的交互式呈现。\n\n## 提供价值\n*   提供更直观、立体的建筑结构和设计概念展示。\n*   通过AR技术，客户可以更全面地掌握建筑内部和外部结构，以及设计理念。\n*   这将有助于客户对项目的整体了解和理解。\n\n---"
   },
   {
-    "num": "29",
+    "num": "27",
     "category": "digital-life",
     "image": "slides/数字生命/1/20e0fcc814045030b9e2814438e2c978.gif",
     "title": "APP: 打造自己的数字生命",
     "content": "# APP: 打造自己的数字生命 (APP: Create Your Own Digital Life)\n\n## 三大要素 (Three Key Elements)\n\n*   **数字人 (Digital Human)**\n    *   数字生命之基础 (Foundation of Digital Life)\n*   **智能 (Intelligence)**\n    *   数字生命之核心 (Core of Digital Life)\n*   **生活助手 (Life Assistant)**\n    *   数字生命之应用 (Application of Digital Life)\n\n## 特性描述 (Feature Description)\n\n*   具有高度的**可定制性**，模拟人类的外貌、声音、表情、动作等特征\n    (Highly **customizable**, simulating human appearance, voice, expressions, actions, and other features)\n*   基于LLM，可以与真实用户进行**自然语言交互**，提供各种智能服务和内容创作\n    (Based on LLM, it can perform **natural language interaction** with real users, providing various intelligent services and content creation)\n\n---\n\n## 手机屏幕内容 (Phone Screen Content)\n\n### 状态栏 (Status Bar)\n*   22:29\n*   Battery: 63%\n*   Signal/Wi-Fi: (full signal)\n*   Battery Level: 70\n\n### 日期/时间小组件 (Date/Time Widget)\n*   星期三 (Wednesday)\n*   十一月 29 (November 29)\n\n### 小组件标题 (Widget Title)\n*   Color Widgets\n\n### 豆瓣电影小组件 (Douban Movie Widget)\n*   **Movie Title:** 《莫斯科不相信眼泪》 (Moscow Doesn't Believe in Tears)\n*   **Douban Rating:** 豆瓣评分 8.5 (Douban Rating 8.5)\n*   **Quote:** \"相信我，到了40岁，你会觉得生活才刚刚开始。\" (\"Believe me, by the time you're 40, you'll feel like life is just beginning.\")\n*   **Date:** 十一月十七 (November 17)\n*   **App Name:** 豆瓣 (Douban)\n\n### 应用图标 (App Icons)\n\n*   **Row 1:**\n    *   Discord\n    *   无边记 (Wubianji - Freeform)\n    *   TuioPad\n    *   ChatGPT\n*   **Row 2:**\n    *   Quantumult X\n    *   PS App\n    *   接客叭... (Jieke ba... - Jike App)\n    *   Instagram\n*   **搜索栏 (Search Bar):**\n    *   搜索 (Search)\n*   **Dock Icons:**\n    *   (Phone app icon)\n    *   (QQ app icon) - 3 notifications\n    *   (WeChat app icon) - 1 notification\n    *   (Spotify app icon)\n\n---"
   },
   {
-    "num": "30",
+    "num": "28",
     "category": "digital-life",
     "image": "slides/数字生命/2/初稿.gif",
     "title": "元宇宙数字分身 (Metaverse Digital Avatar)",
     "content": "# SHOWCASE\n\n## 项目简介\n*   个人高精度数字分身克隆与全身三维骨骼绑定，模拟逼真的日常造型、衣着质感与面部毛孔，为跨平台数字交互打下写实级基础。\n\n---"
   },
   {
-    "num": "31",
+    "num": "29",
     "category": "digital-life",
     "image": "slides/数字生命/4/7月29日(1).gif",
     "title": "新年数字资产演绎 (New Year Digital Asset Performance)",
