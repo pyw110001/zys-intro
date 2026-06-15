@@ -12,7 +12,7 @@ export const SERVICES = [
     subtitle: 'Robotic Fabrication',
     icon: Printer,
     color: 'teal',
-    image: 'slides/核心业务缩略图/智能制造.png',
+    image: 'slides/services_thumbnails/3d_print.png',
     description: '利用多轴工业机械臂的增材制造工艺，配合高性能、可循环的塑料复合材料（如ASA、PC等），实现大尺寸异形雕塑、空间构件与建筑表皮的高精度快速建造。',
     details: [
       '大尺寸参数化异形雕塑打印',
@@ -28,7 +28,7 @@ export const SERVICES = [
     subtitle: 'Interactive Art & VFX',
     icon: Sparkles,
     color: 'mint',
-    image: 'slides/核心业务缩略图/新媒体艺术.gif',
+    image: 'slides/services_thumbnails/interactive.gif',
     description: '融合视觉特效、空间投影、智能感应与新媒体艺术，通过在数字与物理空间之间搭建互动桥梁，创造沉浸式的情境艺术体验。',
     details: [
       '实时互动墙面与感应灯光矩阵',
@@ -44,7 +44,7 @@ export const SERVICES = [
     subtitle: 'AR Sandbox & Digital Twin',
     icon: Layers,
     color: 'periwinkle',
-    image: 'slides/核心业务缩略图/增强现实.gif',
+    image: 'slides/services_thumbnails/sandbox.gif',
     description: '通过高精度的数字孪生与图像追踪定位技术，将实体空间沙盘与虚拟数字规划无缝融合，提供全方位的交互式、多维度规划方案呈现。',
     details: [
       '物理沙盘与虚拟三维动态数据叠加',
@@ -60,7 +60,7 @@ export const SERVICES = [
     subtitle: 'AIGC & Digital Human',
     icon: Cpu,
     color: 'purple',
-    image: 'slides/核心业务缩略图/数字生命.png',
+    image: 'slides/services_thumbnails/digital_life.png',
     description: '结合先进的大语言模型与超拟真数字人技术，定制可模拟人类外貌、表情、声音及动作的数字分身，为品牌及个人量身打造智能生活助手。',
     details: [
       '高可定制数字人外貌、音色与表情系统',
