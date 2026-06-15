@@ -25,7 +25,7 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
             </h2>
             
             <h3 className="text-xl font-bold font-sans mb-1 text-white">朱元双 (Zhu Yuanshuang)</h3>
-            <p className="text-[10px] font-mono tracking-widest text-[#7d8187] uppercase mb-8">团队负责人 / 数字艺术家 / 智能建造专家</p>
+            <p className="text-[10px] font-mono tracking-widest text-[#7d8187] uppercase mb-8">数字艺术家 / 智能建造专家</p>
             
             <p className="text-xs md:text-sm text-[#7d8187] font-light leading-relaxed mb-10 tracking-wide">
               曾任同济大学建筑设计研究院数字实验室负责人，长期致力于将前沿科学技术与空间艺术深度融合，探索智慧城市空间下的新型多维交互与建造表现方式。
@@ -33,7 +33,7 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
             
             <div className="space-y-8">
               {[
-                { icon: User, title: '专业背景', desc: '同济大学数字实验室背景，深耕 VR/AR、机械臂建造与智能空间交互多年。' },
+                { icon: User, title: '专业背景', desc: '同济大学数字实验室背景，深耕3D打印、VR/AR、机器人加工技术、交互装置等。' },
                 { icon: Sparkles, title: '核心技术领域', desc: '新媒体装置艺术、多轴机械臂三维增材制造、实时人脸与运动追踪、AIGC智能体开发。' },
                 { icon: Compass, title: '主创及设计项目', desc: '主持及参与第46届家博会ADD特展、上海国际光影节、南京颐和路互动景观墙等多项国家及国际性重点项目。' },
               ].map((feature, i) => (
