@@ -262,10 +262,10 @@ const Masonry: React.FC<MasonryProps> = ({
             {/* Info bottom bar */}
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 flex justify-between items-end pointer-events-none">
               <span className="font-mono text-[10px] text-white/50">{item.id}</span>
-              <span className="text-[9px] font-mono tracking-widest text-[#9de8cf] uppercase">VIEW</span>
+              <span className="text-[9px] font-mono tracking-widest text-[#ff7a17] uppercase">VIEW</span>
             </div>
             {colorShiftOnHover && (
-              <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-[#9de8cf]/20 to-transparent opacity-0 pointer-events-none transition-opacity duration-300" />
+              <div className="color-overlay absolute inset-0 rounded-[10px] bg-gradient-to-tr from-[#ff7a17]/20 to-transparent opacity-0 pointer-events-none transition-opacity duration-300" />
             )}
           </div>
         </div>

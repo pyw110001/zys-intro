@@ -28,8 +28,8 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({
   speed = 15,
   textColor = '#fff',
   bgColor = 'transparent',
-  marqueeBgColor = '#ffffff',
-  marqueeTextColor = '#050706',
+  marqueeBgColor = '#ff7a17',
+  marqueeTextColor = '#0a0a0a',
   borderColor = 'rgba(255, 255, 255, 0.1)',
   activeIndex,
   onItemHover,
@@ -181,7 +181,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       {/* Static Label Container */}
       <div className="flex items-center justify-between py-8 w-full h-full px-2">
         <div className="flex items-center gap-6">
-          <span className="font-mono text-xs text-[#8d928d]">{item.num}</span>
+          <span className="font-mono text-xs text-[#7d8187]">{item.num}</span>
           <h3 className={`text-xl md:text-2xl font-bold font-sans tracking-tight transition-all duration-300 ${
             isActive ? 'text-white translate-x-2' : 'text-white/40'
           }`}>
@@ -191,7 +191,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         
         {/* Right Arrow Icon */}
         <div className={`transition-all duration-300 pr-2 ${
-          isActive ? 'text-[#9de8cf] translate-x-0 opacity-100' : 'text-white/20 translate-x-4 opacity-0'
+          isActive ? 'text-[#ff7a17] translate-x-0 opacity-100' : 'text-white/20 translate-x-4 opacity-0'
         }`}>
           <svg 
             xmlns="http://www.w3.org/2000/svg" 

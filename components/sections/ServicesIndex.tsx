@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Printer, Sparkles, Layers, Cpu } from 'lucide-react';
 import SectionLabel from '../ui/SectionLabel';
 import FlowingMenu, { FlowingMenuItem } from '../ui/FlowingMenu';
+import ThreeBackground from '../ThreeBackground';
 
 export const SERVICES = [
   {
@@ -87,8 +88,9 @@ const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
   }));
 
   return (
-    <section id="services" className="py-12 md:py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section id="services" className="relative w-full h-full flex items-center px-6 md:px-12 overflow-hidden">
+      <ThreeBackground />
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <SectionLabel num="03" title="Services" className="mb-16" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -104,7 +106,7 @@ const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
 
           {/* Right: Dynamic Details Preview */}
           <div className="lg:col-span-6 bg-panel border border-white/5 p-8 md:p-12 min-h-[420px] flex flex-col justify-between relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#9de8cf]/30 via-transparent to-transparent" />
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-[#ff7a17]/30 via-transparent to-transparent" />
             
             <AnimatePresence mode="wait">
               <motion.div
@@ -116,19 +118,19 @@ const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
                 className="flex-1 flex flex-col justify-between"
               >
                 <div>
-                  <div className="flex items-center gap-4 mb-6 text-[#9de8cf]">
+                  <div className="flex items-center gap-4 mb-6 text-[#ff7a17]">
                     {React.createElement(SERVICES[activeIndex].icon, { className: 'w-5 h-5' })}
                     <span className="font-mono text-[10px] tracking-widest uppercase">{SERVICES[activeIndex].subtitle}</span>
                   </div>
                   
-                  <p className="text-xs md:text-sm text-[#8d928d] font-light leading-relaxed mb-8">
+                  <p className="text-xs md:text-sm text-[#7d8187] font-light leading-relaxed mb-8">
                     {SERVICES[activeIndex].description}
                   </p>
                   
                   <div className="space-y-3 mb-8">
                     {SERVICES[activeIndex].details.map((detail, dIdx) => (
-                      <div key={dIdx} className="flex items-start gap-3 text-[11px] text-[#f3f0e8]/80">
-                        <span className="w-1 h-1 bg-[#9de8cf] rounded-full mt-1.5 shrink-0" />
+                      <div key={dIdx} className="flex items-start gap-3 text-[11px] text-white/80">
+                        <span className="w-1 h-1 bg-[#ff7a17] rounded-full mt-1.5 shrink-0" />
                         <span className="leading-relaxed">{detail}</span>
                       </div>
                     ))}
@@ -136,10 +138,10 @@ const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
                 </div>
 
                 <div className="border-t border-white/5 pt-6 mt-6">
-                  <span className="font-mono text-[9px] tracking-widest text-[#8d928d] block mb-3 uppercase">SELECTED CASES</span>
+                  <span className="font-mono text-[9px] tracking-widest text-[#7d8187] block mb-3 uppercase">SELECTED CASES</span>
                   <div className="flex flex-wrap gap-2">
                     {SERVICES[activeIndex].cases.map((cName, cIdx) => (
-                      <span key={cIdx} className="text-[10px] bg-white/5 text-[#f3f0e8]/60 px-3 py-1.5 border border-white/5">
+                      <span key={cIdx} className="text-[10px] bg-white/5 text-white/60 px-3 py-1.5 border border-white/5">
                         {cName}
                       </span>
                     ))}

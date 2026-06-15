@@ -2,6 +2,7 @@ import React from 'react';
 import { User, Sparkles, Compass } from 'lucide-react';
 import SectionLabel from '../ui/SectionLabel';
 import ProfileCard from '../ui/ProfileCard';
+import ThreeBackground from '../ThreeBackground';
 
 interface FounderSectionProps {
   onImageClick: () => void;
@@ -10,8 +11,9 @@ interface FounderSectionProps {
 
 const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToSection }) => {
   return (
-    <section id="about" className="py-12 md:py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section id="about" className="relative w-full h-full flex items-center px-6 md:px-12 overflow-hidden">
+      <ThreeBackground />
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <SectionLabel num="05" title="Founder" className="mb-16" />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -19,13 +21,13 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
           <div className="lg:col-span-6 order-2 lg:order-1">
             <h2 className="text-3xl md:text-5xl font-heading font-bold uppercase leading-[1.1] mb-8 select-none">
               FOUNDER / <br />
-              <span className="text-[#8d928d]">CREATIVE TECHNOLOGIST</span>
+              <span className="text-[#7d8187]">CREATIVE TECHNOLOGIST</span>
             </h2>
             
             <h3 className="text-xl font-bold font-sans mb-1 text-white">朱元双 (Zhu Yuanshuang)</h3>
-            <p className="text-[10px] font-mono tracking-widest text-[#8d928d] uppercase mb-8">团队负责人 / 数字艺术家 / 智能建造专家</p>
+            <p className="text-[10px] font-mono tracking-widest text-[#7d8187] uppercase mb-8">团队负责人 / 数字艺术家 / 智能建造专家</p>
             
-            <p className="text-xs md:text-sm text-[#8d928d] font-light leading-relaxed mb-10 tracking-wide">
+            <p className="text-xs md:text-sm text-[#7d8187] font-light leading-relaxed mb-10 tracking-wide">
               曾任同济大学建筑设计研究院数字实验室负责人，长期致力于将前沿科学技术与空间艺术深度融合，探索智慧城市空间下的新型多维交互与建造表现方式。
             </p>
             
@@ -36,12 +38,12 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
                 { icon: Compass, title: '主创及设计项目', desc: '主持及参与第46届家博会ADD特展、上海国际光影节、南京颐和路互动景观墙等多项国家及国际性重点项目。' },
               ].map((feature, i) => (
                 <div key={i} className="flex items-start gap-4">
-                  <div className="p-3 bg-white/5 border border-white/5 shrink-0 text-[#9de8cf]">
+                  <div className="p-3 bg-white/5 border border-white/5 shrink-0 text-[#ff7a17]">
                     <feature.icon className="w-4 h-4" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold mb-1.5 font-sans tracking-wide text-white">{feature.title}</h4>
-                    <p className="text-xs text-[#8d928d] leading-relaxed font-light">{feature.desc}</p>
+                    <p className="text-xs text-[#7d8187] leading-relaxed font-light">{feature.desc}</p>
                   </div>
                 </div>
               ))}
@@ -76,8 +78,8 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
                   }
                 }}
                 behindGlowEnabled={true}
-                behindGlowColor="rgba(157, 232, 207, 0.45)"
-                innerGradient="linear-gradient(145deg, rgba(20, 24, 22, 0.9) 0%, rgba(157, 232, 207, 0.15) 100%)"
+                behindGlowColor="rgba(255, 122, 23, 0.45)"
+                innerGradient="linear-gradient(145deg, rgba(20, 24, 22, 0.9) 0%, rgba(255, 122, 23, 0.15) 100%)"
               />
             </div>
           </div>

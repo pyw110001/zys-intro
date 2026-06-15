@@ -21,7 +21,7 @@ const EditorialButton: React.FC<EditorialButtonProps> = ({
       data-cursor-text={cursorText}
       className={`group relative overflow-hidden font-mono text-[10px] tracking-[0.2em] uppercase transition-all duration-300 py-4 px-8 cursor-pointer select-none ${
         variant === 'solid'
-          ? 'bg-[#f3f0e8] text-[#050706] hover:bg-[#9de8cf] hover:text-[#050706]'
+          ? 'bg-white text-[#0a0a0a] hover:bg-[#ff7a17] hover:text-[#0a0a0a]'
           : 'bg-transparent text-white border border-white/10 hover:border-white/40'
       } ${className}`}
     >

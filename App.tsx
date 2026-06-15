@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import ThreeBackground from './components/ThreeBackground';
 import CustomCursor from './components/CustomCursor';
 import AIChat from './components/AIChat';
 import NavBar from './components/layout/NavBar';
@@ -218,10 +217,9 @@ const App: React.FC = () => {
   return (
     <div 
       ref={containerRef}
-      className="relative h-screen w-screen overflow-hidden text-white selection:bg-[#9de8cf] selection:text-black cursor-auto md:cursor-none bg-[#050706]"
+      className="relative h-screen w-screen overflow-hidden text-white selection:bg-[#ff7a17] selection:text-black cursor-auto md:cursor-none bg-[#0a0a0a]"
     >
       <CustomCursor />
-      <ThreeBackground />
       
       {/* Navigation */}
       <NavBar scrollToSection={scrollToSection} />
@@ -245,18 +243,18 @@ const App: React.FC = () => {
               aria-label={`Go to section ${item.name}`}
             >
               <span className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${
-                isActive ? 'text-[#9de8cf] scale-105 opacity-100' : 'text-[#8d928d]/40 opacity-0 group-hover:opacity-100 group-hover:text-white/80'
+                isActive ? 'text-[#ff7a17] scale-105 opacity-100' : 'text-[#7d8187]/40 opacity-0 group-hover:opacity-100 group-hover:text-white/80'
               }`}>
                 {item.name}
               </span>
               <div className="relative flex items-center justify-center w-3 h-3">
                 <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
-                  isActive ? 'bg-[#9de8cf] scale-150' : 'bg-white/20 group-hover:bg-white/60'
+                  isActive ? 'bg-[#ff7a17] scale-150' : 'bg-white/20 group-hover:bg-white/60'
                 }`} />
                 {isActive && (
                   <motion.div
                     layoutId="activeDotOutline"
-                    className="absolute inset-0 border border-[#9de8cf] rounded-full scale-125"
+                    className="absolute inset-0 border border-[#ff7a17] rounded-full scale-125"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -318,17 +316,17 @@ const App: React.FC = () => {
             </div>
 
             {/* FOOTER */}
-            <footer className="border-t border-white/5 py-8 md:py-12 bg-[#050706]">
+            <footer className="border-t border-white/5 py-8 md:py-12 bg-[#0a0a0a]">
               <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                 <div>
                    <div className="font-heading text-lg font-bold tracking-tight mb-2 text-white">Z-LAB</div>
-                   <p className="text-[10px] font-mono text-[#8d928d] tracking-wider uppercase">
+                   <p className="text-[10px] font-mono text-[#7d8187] tracking-wider uppercase">
                      © 2026 朱元双数字艺术与智能建造工作室. All rights reserved.
                    </p>
                 </div>
                 
-                <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#8d928d] tracking-widest uppercase">
-                  <span className="text-[#9de8cf]">Art meets Science. Built with precision.</span>
+                <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#7d8187] tracking-widest uppercase">
+                  <span className="text-[#ff7a17]">Art meets Science. Built with precision.</span>
                 </div>
               </div>
             </footer>
@@ -344,7 +342,7 @@ const App: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedService(null)}
-            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-[#050706]/90 backdrop-blur-md"
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-[#0a0a0a]/90 backdrop-blur-md"
           >
             <motion.div
               initial={{ scale: 0.98, y: 15 }}
@@ -364,24 +362,24 @@ const App: React.FC = () => {
 
               <div className="flex-1">
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="p-3 bg-white/5 border border-white/5 text-[#9de8cf]">
+                  <div className="p-3 bg-white/5 border border-white/5 text-[#ff7a17]">
                     {React.createElement(selectedService.icon, { className: 'w-6 h-6' })}
                   </div>
                   <div>
                     <h3 className="text-2xl font-bold font-sans tracking-tight text-white">{selectedService.title}</h3>
-                    <p className="text-[#8d928d] font-mono text-xs uppercase tracking-widest mt-1">{selectedService.subtitle}</p>
+                    <p className="text-[#7d8187] font-mono text-xs uppercase tracking-widest mt-1">{selectedService.subtitle}</p>
                   </div>
                 </div>
 
-                <p className="text-xs md:text-sm text-[#8d928d] leading-relaxed font-light mb-8">
+                <p className="text-xs md:text-sm text-[#7d8187] leading-relaxed font-light mb-8">
                   {selectedService.description}
                 </p>
 
-                <h4 className="text-[10px] font-mono uppercase text-[#9de8cf] tracking-widest mb-4">技术与应用要点</h4>
-                <ul className="space-y-3 mb-8 text-xs text-[#f3f0e8]/80 font-light">
+                <h4 className="text-[10px] font-mono uppercase text-[#ff7a17] tracking-widest mb-4">技术与应用要点</h4>
+                <ul className="space-y-3 mb-8 text-xs text-white/80 font-light">
                   {selectedService.details.map((detail, idx) => (
                     <li key={idx} className="flex items-start gap-3">
-                      <span className="w-1 h-1 bg-[#9de8cf] rounded-full mt-1.5 shrink-0" />
+                      <span className="w-1 h-1 bg-[#ff7a17] rounded-full mt-1.5 shrink-0" />
                       <span className="leading-relaxed">{detail}</span>
                     </li>
                   ))}
@@ -422,14 +420,14 @@ const App: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsLightboxOpen(false)}
-            className="fixed inset-0 z-[70] bg-[#050706]/98 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out select-none"
+            className="fixed inset-0 z-[70] bg-[#0a0a0a]/98 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out select-none"
           >
             <div 
-              className="relative max-w-6xl max-h-[85vh] w-full bg-[#0b1110] border border-white/10 overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-12 cursor-auto"
+              className="relative max-w-6xl max-h-[85vh] w-full bg-[#191919] border border-white/10 overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-12 cursor-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Left Column: Image(s) */}
-              <div className="md:col-span-7 bg-[#050706] p-4 flex items-center justify-center min-h-[300px] md:min-h-0 select-none">
+              <div className="md:col-span-7 bg-[#0a0a0a] p-4 flex items-center justify-center min-h-[300px] md:min-h-0 select-none">
                 {SLIDES[activeSlideIndex].images && SLIDES[activeSlideIndex].images!.length > 1 ? (
                   <div className="grid grid-cols-2 gap-3 w-full h-full bg-black/10">
                     {SLIDES[activeSlideIndex].images!.map((imgUrl, i) => (
@@ -452,16 +450,16 @@ const App: React.FC = () => {
               </div>
 
               {/* Right Column: Slide Text Details */}
-              <div className="md:col-span-5 bg-[#0b1110] p-6 md:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/10 max-h-[40vh] md:max-h-[85vh] overflow-y-auto">
+              <div className="md:col-span-5 bg-[#191919] p-6 md:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/10 max-h-[40vh] md:max-h-[85vh] overflow-y-auto">
                 <div className="overflow-y-auto scrollbar-thin pr-2 text-left">
                   <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-3">
-                    <span className="text-[#9de8cf] font-mono text-[10px] tracking-widest uppercase">Slide {SLIDES[activeSlideIndex].num}</span>
-                    <span className="text-[10px] font-mono text-[#8d928d] tracking-wider">{activeSlideIndex + 1} / {SLIDES.length}</span>
+                    <span className="text-[#ff7a17] font-mono text-[10px] tracking-widest uppercase">Slide {SLIDES[activeSlideIndex].num}</span>
+                    <span className="text-[10px] font-mono text-[#7d8187] tracking-wider">{activeSlideIndex + 1} / {SLIDES.length}</span>
                   </div>
                   <h3 className="text-xl font-heading font-bold text-white uppercase tracking-tight mb-4">
                     {SLIDES[activeSlideIndex].title}
                   </h3>
-                  <div className="text-[#8d928d] font-light text-xs leading-relaxed whitespace-pre-wrap">
+                  <div className="text-[#7d8187] font-light text-xs leading-relaxed whitespace-pre-wrap">
                     {SLIDES[activeSlideIndex].content
                       .replace(/^#(.*)$/m, '') // Remove first H1 title from body to avoid repeating
                       .replace(/---$/, '') // Remove dashes
@@ -494,7 +492,7 @@ const App: React.FC = () => {
 
                   <button 
                     onClick={() => setIsLightboxOpen(false)}
-                    className="border border-[#9de8cf]/30 text-[#9de8cf] px-5 py-2 text-xs font-mono tracking-widest uppercase hover:bg-[#9de8cf] hover:text-black transition-colors"
+                    className="border border-[#ff7a17]/30 text-[#ff7a17] px-5 py-2 text-xs font-mono tracking-widest uppercase hover:bg-[#ff7a17] hover:text-black transition-colors"
                   >
                     Close
                   </button>

@@ -66,7 +66,7 @@ const ProjectArchive: React.FC<ProjectArchiveProps> = ({
   return (
     <section 
       id="slides" 
-      className="h-full w-full overflow-y-auto py-12 md:py-16 px-6 md:px-12 bg-[#080a09]/20 backdrop-blur-md scrollbar-thin text-left"
+      className="h-full w-full overflow-y-auto py-12 md:py-16 px-6 md:px-12 bg-[#0a0a0a]/20 backdrop-blur-md scrollbar-thin text-left"
     >
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
@@ -82,8 +82,8 @@ const ProjectArchive: React.FC<ProjectArchiveProps> = ({
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-3 py-1.5 transition-all duration-300 border ${
                     isSelected 
-                      ? 'border-[#9de8cf] text-[#9de8cf] bg-[#9de8cf]/5' 
-                      : 'border-transparent text-[#8d928d] hover:text-white'
+                      ? 'border-[#ff7a17] text-[#ff7a17] bg-[#ff7a17]/5' 
+                      : 'border-transparent text-[#7d8187] hover:text-white'
                   } cursor-pointer`}
                 >
                   {cat.label}

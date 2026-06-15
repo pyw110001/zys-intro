@@ -39,7 +39,7 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
             <button 
               key={item.id} 
               onClick={() => handleItemClick(item.id)}
-              className="hover:text-[#9de8cf] transition-colors text-white cursor-pointer bg-transparent border-none uppercase tracking-[0.2em]"
+              className="hover:text-[#ff7a17] transition-colors text-white cursor-pointer bg-transparent border-none uppercase tracking-[0.2em]"
               data-hover="true"
               data-cursor-text="GO TO"
             >
@@ -74,13 +74,13 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="fixed inset-0 z-30 bg-[#050706]/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 z-30 bg-[#0a0a0a]/98 backdrop-blur-xl flex flex-col items-center justify-center gap-8 md:hidden"
           >
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleItemClick(item.id)}
-                className="text-xl font-heading font-bold text-white hover:text-[#9de8cf] transition-colors uppercase bg-transparent border-none cursor-pointer"
+                className="text-xl font-heading font-bold text-white hover:text-[#ff7a17] transition-colors uppercase bg-transparent border-none cursor-pointer"
               >
                 {item.name}
               </button>

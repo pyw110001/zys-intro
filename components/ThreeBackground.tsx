@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
-const PARTICLE_COUNT = 400;
+const PARTICLE_COUNT = 300; // Slightly reduced to keep it clean and minimal for xAI
 
 const PARTICLE_VERTEX = /* glsl */ `
   attribute float aSize;
@@ -17,8 +17,8 @@ const PARTICLE_VERTEX = /* glsl */ `
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
-    gl_PointSize = aSize * (160.0 / -mvPosition.z);
-    vAlpha = 0.15 + 0.15 * sin(uTime + aPhase);
+    gl_PointSize = aSize * (150.0 / -mvPosition.z);
+    vAlpha = 0.12 + 0.12 * sin(uTime + aPhase);
   }
 `;
 
@@ -30,8 +30,8 @@ const PARTICLE_FRAGMENT = /* glsl */ `
     float dist = length(c);
     if (dist > 0.5) discard;
     float soft = smoothstep(0.5, 0.0, dist);
-    // Muted warm mint/white: rgb(180, 200, 190) -> (0.71, 0.78, 0.75)
-    gl_FragColor = vec4(0.71, 0.78, 0.75, soft * vAlpha);
+    // Cool cosmic space gray/white: rgb(240, 240, 245)
+    gl_FragColor = vec4(0.94, 0.94, 0.96, soft * vAlpha);
   }
 `;
 
@@ -42,6 +42,9 @@ const ThreeBackground: React.FC = () => {
     const container = containerRef.current;
     if (!container) return;
 
+    // Set container classes to absolute cover
+    container.className = 'absolute inset-0 -z-10 w-full h-full pointer-events-none overflow-hidden';
+
     // Detect prefers-reduced-motion
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
     let isReduced = mediaQuery.matches;
@@ -51,12 +54,22 @@ const ThreeBackground: React.FC = () => {
     mediaQuery.addEventListener('change', handleMotionChange);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color('#050706');
-    scene.fog = new THREE.FogExp2('#050706', 0.045);
+    scene.background = new THREE.Color('#0a0a0a'); // xAI base canvas background
+    scene.fog = new THREE.FogExp2('#0a0a0a', 0.045);
+
+    // Get current container size or fallback to window
+    const getContainerSize = () => {
+      const rect = container.getBoundingClientRect();
+      const w = container.clientWidth || rect.width || window.innerWidth;
+      const h = container.clientHeight || rect.height || window.innerHeight;
+      return { w, h };
+    };
+
+    const size = getContainerSize();
 
     const camera = new THREE.PerspectiveCamera(
       55,
-      window.innerWidth / window.innerHeight,
+      size.w / size.h,
       0.1,
       100,
     );
@@ -68,9 +81,9 @@ const ThreeBackground: React.FC = () => {
       powerPreference: 'high-performance',
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(size.w, size.h);
     renderer.domElement.className =
-      'fixed inset-0 -z-10 w-screen h-screen pointer-events-none';
+      'absolute inset-0 -z-10 w-full h-full pointer-events-none';
     renderer.domElement.style.display = 'block';
     container.appendChild(renderer.domElement);
 
@@ -88,7 +101,7 @@ const ThreeBackground: React.FC = () => {
       particlePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
       particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 10;
       particlePositions[i * 3 + 2] = radius * Math.sin(phi) * Math.sin(theta) - 6;
-      particleSizes[i] = 1.0 + Math.random() * 1.5;
+      particleSizes[i] = 0.8 + Math.random() * 1.2; // Slightly smaller stars
       particlePhases[i] = Math.random() * Math.PI * 2;
     }
 
@@ -117,8 +130,12 @@ const ThreeBackground: React.FC = () => {
     let smoothScrollY = 0;
 
     const onMouseMove = (e: MouseEvent) => {
-      targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
-      targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+      // Calculate mouse coordinates relative to the container element
+      const rect = container.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      targetMouseX = (x / rect.width) * 2 - 1;
+      targetMouseY = -(y / rect.height) * 2 + 1;
     };
 
     const onScroll = () => {
@@ -126,11 +143,10 @@ const ThreeBackground: React.FC = () => {
     };
 
     const onResize = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      camera.aspect = w / h;
+      const currentSize = getContainerSize();
+      camera.aspect = currentSize.w / currentSize.h;
       camera.updateProjectionMatrix();
-      renderer.setSize(w, h);
+      renderer.setSize(currentSize.w, currentSize.h);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
 

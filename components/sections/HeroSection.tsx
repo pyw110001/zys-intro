@@ -61,7 +61,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           
           <motion.p
             variants={itemVariants}
-            className="text-xs md:text-sm text-[#8d928d] font-light max-w-xl leading-relaxed mb-10 tracking-wide"
+            className="text-xs md:text-sm text-[#7d8187] font-light max-w-xl leading-relaxed mb-10 tracking-wide"
           >
             数字艺术与智能建造工作室，在新媒体交互、机器人3D打印、AR增强现实沙盘与AIGC数字生命之间构建跨媒介空间体验。
           </motion.p>
@@ -86,7 +86,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
         {/* Right Info Panel */}
         <motion.div
           variants={itemVariants}
-          className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-10 flex flex-col gap-6 text-[10px] font-mono tracking-widest text-[#8d928d] uppercase"
+          className="lg:col-span-4 border-t lg:border-t-0 lg:border-l border-white/10 pt-8 lg:pt-0 lg:pl-10 flex flex-col gap-6 text-[10px] font-mono tracking-widest text-[#7d8187] uppercase"
         >
           <div>
             <div className="text-white mb-1">FOUNDED / 2026</div>
@@ -99,7 +99,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <div>
             <div className="text-white mb-1">STATUS</div>
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-pulse" />
+              <span className="w-1.5 h-1.5 bg-[#ff7a17] rounded-full animate-pulse" />
               <span>ACTIVE WORKSPACE</span>
             </div>
           </div>

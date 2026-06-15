@@ -54,9 +54,9 @@ const AIChat: React.FC = () => {
             className="mb-4 w-[90vw] md:w-96 bg-panel border border-white/10 overflow-hidden shadow-2xl"
           >
             {/* Header */}
-            <div className="bg-[#0e1715] p-4 flex justify-between items-center border-b border-white/5">
+            <div className="bg-[#141414] p-4 flex justify-between items-center border-b border-white/5">
               <div className="flex items-center gap-2.5">
-                <Sparkles className="w-4 h-4 text-[#9de8cf]" />
+                <Sparkles className="w-4 h-4 text-[#ff7a17]" />
                 <h3 className="font-mono text-xs font-bold text-white tracking-widest">LUMI CONSULTANT</h3>
               </div>
               <button 
@@ -82,8 +82,8 @@ const AIChat: React.FC = () => {
                   <div
                     className={`max-w-[85%] p-3 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-[#f3f0e8] text-[#050706] font-medium'
-                        : 'bg-white/5 text-[#8d928d] border border-white/5'
+                        ? 'bg-[#ffffff] text-[#0a0a0a] font-medium'
+                        : 'bg-white/5 text-[#7d8187] border border-white/5'
                     }`}
                   >
                     {msg.text}
@@ -93,16 +93,16 @@ const AIChat: React.FC = () => {
               {isLoading && (
                 <div className="flex justify-start">
                   <div className="bg-white/5 p-3 flex gap-1 border border-white/5">
-                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-1.5 h-1.5 bg-[#9de8cf] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#ff7a17] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#ff7a17] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-1.5 h-1.5 bg-[#ff7a17] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </div>
                 </div>
               )}
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/5 bg-[#080a09]">
+            <div className="p-3 border-t border-white/5 bg-[#141414]">
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -120,7 +120,7 @@ const AIChat: React.FC = () => {
                 <button
                   onClick={handleSend}
                   disabled={isLoading || !input.trim()}
-                  className="bg-white text-black p-2 hover:bg-[#9de8cf] transition-colors disabled:opacity-30 cursor-pointer"
+                  className="bg-white text-black p-2 hover:bg-[#ff7a17] transition-colors disabled:opacity-30 cursor-pointer"
                   data-hover="true"
                   data-cursor-text="SEND"
                   aria-label="Send message"
@@ -138,7 +138,7 @@ const AIChat: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-12 h-12 md:w-14 md:h-14 bg-panel border border-white/10 flex items-center justify-center shadow-xl z-50 cursor-pointer text-white hover:border-white/30 hover:bg-[#0e1715] transition-colors"
+        className="w-12 h-12 md:w-14 md:h-14 bg-panel border border-white/10 flex items-center justify-center shadow-xl z-50 cursor-pointer text-white hover:border-white/30 hover:bg-[#141414] transition-colors"
         data-hover="true"
         data-cursor-text={isOpen ? "CLOSE" : "CHAT"}
         aria-label={isOpen ? 'Close chat' : 'Open chat'}

@@ -9,12 +9,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#050706',
-        panel: '#0b1110',
-        paper: '#f3f0e8',
-        muted: '#8d928d',
-        mint: '#9de8cf',
-        line: 'rgba(255,255,255,0.08)',
+        ink: '#0a0a0a',
+        panel: '#191919',
+        paper: '#ffffff',
+        muted: '#7d8187',
+        sunset: '#ff7a17',
+        line: '#212327',
       },
       scale: {
         102: '1.02',

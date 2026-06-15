@@ -27,7 +27,7 @@ const PhilosophySection: React.FC = () => {
           </div>
           
           <div className="lg:col-span-4 lg:pt-3">
-            <p className="text-xs md:text-sm text-[#8d928d] font-light leading-relaxed tracking-wide">
+            <p className="text-xs md:text-sm text-[#7d8187] font-light leading-relaxed tracking-wide">
               我们将机械臂建造、实时交互、数字孪生与AI生成能力整合到空间项目中，为品牌活动、公共艺术、建筑展示与未来城市空间提供从概念到落地的一体化创作方案。
             </p>
           </div>
