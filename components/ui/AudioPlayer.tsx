@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export default function AudioPlayer() {
-  // Default state is paused (OFF)
-  const [isPlaying, setIsPlaying] = useState(false);
+  // Default state is playing (ON)
+  const [isPlaying, setIsPlaying] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const pathRef = useRef<SVGPathElement | null>(null);
 
   const maxVolume = 0.35; // Soft background music volume
   const isPlayingRef = useRef(isPlaying);
-  const targetVolumeRef = useRef(0); // Starts at 0 volume
+  const targetVolumeRef = useRef(maxVolume); // Starts at maxVolume
   const currentVolRef = useRef(0);
   const timeRef = useRef(0);
   const isLoopActiveRef = useRef(false);
@@ -95,18 +95,17 @@ export default function AudioPlayer() {
     if (isPlaying) {
       targetVolumeRef.current = maxVolume;
       
+      // Start the animation loop immediately so the wave flows on load
+      startAnimationLoop();
+      
       // Attempt to play
-      audio.play().then(() => {
-        startAnimationLoop();
-      }).catch((err) => {
+      audio.play().catch((err) => {
         // If it failed (likely autoplay block on first mount), set up interaction triggers
         console.warn("Audio play deferred or blocked:", err);
         
         const startOnInteraction = () => {
           if (audio && isPlayingRef.current) {
-            audio.play().then(() => {
-              startAnimationLoop();
-            }).catch(e => console.error(e));
+            audio.play().catch(e => console.error(e));
           }
           cleanup();
         };
