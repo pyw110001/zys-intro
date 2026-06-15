@@ -1,14 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 export default function AudioPlayer() {
-  // 1. Default state is playing (ON)
-  const [isPlaying, setIsPlaying] = useState(true);
+  // Default state is paused (OFF)
+  const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const pathRef = useRef<SVGPathElement | null>(null);
 
   const maxVolume = 0.35; // Soft background music volume
   const isPlayingRef = useRef(isPlaying);
-  const targetVolumeRef = useRef(maxVolume);
+  const targetVolumeRef = useRef(0); // Starts at 0 volume
   const currentVolRef = useRef(0);
   const timeRef = useRef(0);
   const isLoopActiveRef = useRef(false);
