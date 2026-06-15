@@ -199,7 +199,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           >
             {/* Base Layer (Muted outer text) */}
             <h1 className="text-[11vw] md:text-[6.5vw] font-heading font-bold leading-[0.9] tracking-tighter uppercase">
-              <span className="block text-white/75">Z-LAB</span>
               <span className="block text-white/20">DIGITAL ART & ROBOTIC FABRICATION</span>
             </h1>
 
@@ -214,7 +213,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
                   opacity: isHovered ? 1 : 0,
                 }}
               >
-                <span className="block text-white">Z-LAB</span>
                 <span className="block text-white">DIGITAL ART & ROBOTIC FABRICATION</span>
               </h1>
             )}
