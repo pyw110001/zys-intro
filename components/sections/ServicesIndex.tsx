@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Printer, Sparkles, Layers, Cpu, ArrowUpRight } from 'lucide-react';
+import { Printer, Sparkles, Layers, Cpu } from 'lucide-react';
 import SectionLabel from '../ui/SectionLabel';
+import FlowingMenu, { FlowingMenuItem } from '../ui/FlowingMenu';
 
 export const SERVICES = [
   {
@@ -10,11 +11,12 @@ export const SERVICES = [
     subtitle: 'Robotic 3D Printing',
     icon: Printer,
     color: 'teal',
+    image: 'slides/archive_slide_04.png',
     description: '利用多轴工业机械臂的增材制造工艺，配合高性能、可循环的塑料复合材料（如ASA、PC等），实现大尺寸异形雕塑、空间构件与建筑表皮的高精度快速建造。',
     details: [
       '大尺寸参数化异形雕塑打印',
       '材料混配（碳纤维增强、阻燃剂等）',
-      '基于多轴路径规划的无支撑结构打印',
+      '基于多轴路径规划 of 无支撑结构打印',
       '设计-仿真-建造一体化数字工作流'
     ],
     cases: ['第46届家博会ADD特展', '多伦路《重树》艺术装置', '进博会雅诗兰黛展位装置']
@@ -25,6 +27,7 @@ export const SERVICES = [
     subtitle: 'Interactive Art & VFX',
     icon: Sparkles,
     color: 'mint',
+    image: 'slides/archive_slide_08_1.jpg',
     description: '融合视觉特效、空间投影、智能感应与新媒体艺术，通过在数字与物理空间之间搭建互动桥梁，创造沉浸式的情境艺术体验。',
     details: [
       '实时互动墙面与感应灯光矩阵',
@@ -40,6 +43,7 @@ export const SERVICES = [
     subtitle: 'AR Sandbox & Digital Twin',
     icon: Layers,
     color: 'periwinkle',
+    image: 'slides/archive_slide_12.jpg',
     description: '通过高精度的数字孪生与图像追踪定位技术，将实体空间沙盘与虚拟数字规划无缝融合，提供全方位的交互式、多维度规划方案呈现。',
     details: [
       '物理沙盘与虚拟三维动态数据叠加',
@@ -55,6 +59,7 @@ export const SERVICES = [
     subtitle: 'AIGC & Digital Human',
     icon: Cpu,
     color: 'purple',
+    image: 'slides/archive_slide_33.png',
     description: '结合先进的大语言模型与超拟真数字人技术，定制可模拟人类外貌、表情、声音及动作的数字分身，为品牌及个人量身打造智能生活助手。',
     details: [
       '高可定制数字人外貌、音色与表情系统',
@@ -73,6 +78,14 @@ interface ServicesIndexProps {
 const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
+  const flowingItems: FlowingMenuItem[] = SERVICES.map((srv, idx) => ({
+    num: `0${idx + 1}`,
+    title: srv.title,
+    text: srv.title,
+    image: srv.image,
+    rawItem: srv
+  }));
+
   return (
     <section id="services" className="py-12 md:py-16 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -80,31 +93,13 @@ const ServicesIndex: React.FC<ServicesIndexProps> = ({ onServiceSelect }) => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Left: Index List */}
-          <div className="lg:col-span-6 flex flex-col border-t border-white/10">
-            {SERVICES.map((srv, idx) => (
-              <div
-                key={srv.id}
-                onMouseEnter={() => setActiveIndex(idx)}
-                onClick={() => onServiceSelect(srv)}
-                className="group py-8 border-b border-white/10 flex justify-between items-center cursor-pointer select-none"
-                data-hover="true"
-                data-cursor-text="DETAILS"
-              >
-                <div className="flex items-center gap-6">
-                  <span className="font-mono text-xs text-[#8d928d]">0{idx + 1}</span>
-                  <h3 className={`text-xl md:text-2xl font-bold font-sans tracking-tight transition-all duration-300 ${
-                    activeIndex === idx ? 'text-white translate-x-2' : 'text-white/40'
-                  }`}>
-                    {srv.title}
-                  </h3>
-                </div>
-                <div className={`transition-all duration-300 ${
-                  activeIndex === idx ? 'text-[#9de8cf] translate-x-0 opacity-100' : 'text-white/20 translate-x-4 opacity-0'
-                }`}>
-                  <ArrowUpRight className="w-5 h-5" />
-                </div>
-              </div>
-            ))}
+          <div className="lg:col-span-6 flex flex-col">
+            <FlowingMenu
+              items={flowingItems}
+              activeIndex={activeIndex}
+              onItemHover={(idx) => setActiveIndex(idx)}
+              onItemClick={(srv) => onServiceSelect(srv)}
+            />
           </div>
 
           {/* Right: Dynamic Details Preview */}
