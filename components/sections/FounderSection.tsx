@@ -49,10 +49,10 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
           </div>
 
           {/* Right Column: Profile Image */}
-          <div className="lg:col-span-6 order-1 lg:order-2 flex justify-center items-center">
+          <div className="lg:col-span-6 order-1 lg:order-2 flex justify-center items-center w-full">
             <div 
               onClick={onImageClick}
-              className="relative cursor-zoom-in"
+              className="relative cursor-zoom-in w-full max-w-[540px]"
               data-hover="true"
               data-cursor-text="ZOOM"
             >
@@ -64,6 +64,8 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
                 contactText="联系我 / Contact"
                 avatarUrl="slides/founder_avatar.png"
                 showUserInfo={true}
+                showDetailsText={false}
+                isLandscape={true}
                 enableTilt={true}
                 enableMobileTilt={false}
                 onContactClick={() => {

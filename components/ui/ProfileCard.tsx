@@ -19,6 +19,8 @@ export interface ProfileCardProps {
   status?: string;
   contactText?: string;
   showUserInfo?: boolean;
+  showDetailsText?: boolean;
+  isLandscape?: boolean;
   onContactClick?: () => void;
   onClick?: () => void;
 }
@@ -71,6 +73,8 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
   status = 'Online',
   contactText = 'Contact',
   showUserInfo = true,
+  showDetailsText = true,
+  isLandscape = false,
   onContactClick,
   onClick
 }) => {
@@ -464,9 +468,10 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
         <section
           className="grid relative overflow-hidden"
           style={{
-            height: '80svh',
-            maxHeight: '540px',
-            aspectRatio: '0.718',
+            width: isLandscape ? '100%' : undefined,
+            aspectRatio: isLandscape ? '16/9' : '0.718',
+            height: isLandscape ? 'auto' : '80svh',
+            maxHeight: isLandscape ? 'none' : '540px',
             borderRadius: cardRadius,
             backgroundBlendMode: 'color-dodge, normal, normal, normal',
             boxShadow:
@@ -521,14 +526,23 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
               }}
             >
               <img
-                className="w-full absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
+                className={isLandscape 
+                  ? "w-full h-full object-cover absolute inset-0 will-change-transform transition-transform duration-[120ms] ease-out"
+                  : "w-full absolute left-1/2 bottom-[-1px] will-change-transform transition-transform duration-[120ms] ease-out"
+                }
                 src={avatarUrl}
                 alt={`${name || 'User'} avatar`}
                 loading="lazy"
                 style={{
-                  transformOrigin: '50% 100%',
-                  transform:
-                    'translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  position: 'absolute',
+                  inset: 0,
+                  transformOrigin: '50% 50%',
+                  transform: isLandscape
+                    ? 'translate3d(calc((var(--pointer-from-left) - 0.5) * 12px), calc((var(--pointer-from-top) - 0.5) * 12px), 0) scale(1.06)'
+                    : 'translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01))',
                   borderRadius: cardRadius,
                   backfaceVisibility: 'hidden',
                   WebkitBackfaceVisibility: 'hidden'
@@ -589,57 +603,59 @@ const ProfileCardComponent: React.FC<ProfileCardProps> = ({
             </div>
 
             {/* Details content */}
-            <div
-              className="max-h-full overflow-hidden text-center relative z-[5]"
-              style={{
-                transform:
-                  'translate3d(calc(var(--pointer-from-left) * -6px + 3px), calc(var(--pointer-from-top) * -6px + 3px), 0.1px)',
-                mixBlendMode: 'luminosity',
-                gridArea: '1 / -1',
-                borderRadius: cardRadius,
-                pointerEvents: 'none'
-              }}
-            >
-              <div className="w-full absolute flex flex-col" style={{ top: '3em', display: 'flex', gridArea: 'auto' }}>
-                <h3
-                  className="font-semibold m-0"
-                  style={{
-                    fontSize: 'min(5svh, 3em)',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #6f6fbe)',
-                    backgroundSize: '1em 1.5em',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    display: 'block',
-                    gridArea: 'auto',
-                    borderRadius: '0',
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  {name}
-                </h3>
-                <p
-                  className="font-semibold whitespace-nowrap mx-auto w-min"
-                  style={{
-                    position: 'relative',
-                    top: '-12px',
-                    fontSize: '16px',
-                    margin: '0 auto',
-                    backgroundImage: 'linear-gradient(to bottom, #fff, #4a4ac0)',
-                    backgroundSize: '1em 1.5em',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    display: 'block',
-                    gridArea: 'auto',
-                    borderRadius: '0',
-                    pointerEvents: 'auto'
-                  }}
-                >
-                  {title}
-                </p>
+            {showDetailsText && (
+              <div
+                className="max-h-full overflow-hidden text-center relative z-[5]"
+                style={{
+                  transform:
+                    'translate3d(calc(var(--pointer-from-left) * -6px + 3px), calc(var(--pointer-from-top) * -6px + 3px), 0.1px)',
+                  mixBlendMode: 'luminosity',
+                  gridArea: '1 / -1',
+                  borderRadius: cardRadius,
+                  pointerEvents: 'none'
+                }}
+              >
+                <div className="w-full absolute flex flex-col" style={{ top: '3em', display: 'flex', gridArea: 'auto' }}>
+                  <h3
+                    className="font-semibold m-0"
+                    style={{
+                      fontSize: 'min(5svh, 3em)',
+                      backgroundImage: 'linear-gradient(to bottom, #fff, #6f6fbe)',
+                      backgroundSize: '1em 1.5em',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      display: 'block',
+                      gridArea: 'auto',
+                      borderRadius: '0',
+                      pointerEvents: 'auto'
+                    }}
+                  >
+                    {name}
+                  </h3>
+                  <p
+                    className="font-semibold whitespace-nowrap mx-auto w-min"
+                    style={{
+                      position: 'relative',
+                      top: '-12px',
+                      fontSize: '16px',
+                      margin: '0 auto',
+                      backgroundImage: 'linear-gradient(to bottom, #fff, #4a4ac0)',
+                      backgroundSize: '1em 1.5em',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      display: 'block',
+                      gridArea: 'auto',
+                      borderRadius: '0',
+                      pointerEvents: 'auto'
+                    }}
+                  >
+                    {title}
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </section>
       </div>
