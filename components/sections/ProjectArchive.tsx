@@ -18,26 +18,6 @@ const CATEGORIES = [
   { id: 'digital-life', label: '数字生命 / AIGC' }
 ];
 
-const CATEGORY_MAP: Record<string, string> = {
-  "04": "3d-print",
-  "05": "3d-print",
-  "07": "3d-print",
-  "08": "3d-print",
-  "09": "3d-print",
-  "12": "sandbox",
-  "19": "sandbox",
-  "27": "interactive",
-  "31": "interactive",
-  "32": "interactive",
-  "28": "digital-life",
-  "30": "digital-life",
-  "33": "digital-life",
-  "34": "digital-life",
-  "35": "digital-life",
-  "36": "digital-life",
-  "38": "digital-life"
-};
-
 const ProjectArchive: React.FC<ProjectArchiveProps> = ({
   setActiveSlideIndex,
   setIsLightboxOpen,
@@ -48,7 +28,7 @@ const ProjectArchive: React.FC<ProjectArchiveProps> = ({
   // Filter slides based on the selected category
   const filteredSlides = SLIDES.filter(slide => {
     if (selectedCategory === 'all') return true;
-    return CATEGORY_MAP[slide.num] === selectedCategory;
+    return slide.category === selectedCategory;
   });
 
   const masonryItems: MasonryItem[] = filteredSlides.map((slide, idx) => {
