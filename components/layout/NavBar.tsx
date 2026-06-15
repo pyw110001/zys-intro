@@ -35,7 +35,7 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
             text="Z-LAB"
             speed={3}
             delay={0.5}
-            color="#ff7a17"
+            color="#b5b5b5"
             shineColor="#ffffff"
             spread={120}
             direction="left"
