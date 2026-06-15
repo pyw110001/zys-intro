@@ -255,7 +255,10 @@ const App: React.FC = () => {
 
           {/* 05 / FOUNDER */}
           <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden border-t border-white/5">
-            <FounderSection onImageClick={() => { setActiveSlideIndex(0); setIsLightboxOpen(true); }} />
+            <FounderSection 
+              onImageClick={() => { setActiveSlideIndex(0); setIsLightboxOpen(true); }} 
+              scrollToSection={scrollToSection}
+            />
           </div>
 
           {/* 06 / CONTACT + FOOTER (Combined in one full-screen slide) */}

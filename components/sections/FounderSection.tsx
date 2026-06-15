@@ -1,12 +1,14 @@
 import React from 'react';
 import { User, Sparkles, Compass } from 'lucide-react';
 import SectionLabel from '../ui/SectionLabel';
+import ProfileCard from '../ui/ProfileCard';
 
 interface FounderSectionProps {
   onImageClick: () => void;
+  scrollToSection?: (id: string) => void;
 }
 
-const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick }) => {
+const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToSection }) => {
   return (
     <section id="about" className="py-12 md:py-16 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
@@ -47,28 +49,34 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick }) => {
           </div>
 
           {/* Right Column: Profile Image */}
-          <div className="lg:col-span-6 order-1 lg:order-2">
+          <div className="lg:col-span-6 order-1 lg:order-2 flex justify-center items-center">
             <div 
               onClick={onImageClick}
-              className="relative w-full aspect-video border border-white/5 bg-panel p-2 cursor-zoom-in"
+              className="relative cursor-zoom-in"
               data-hover="true"
               data-cursor-text="ZOOM"
             >
-              <div className="relative w-full h-full overflow-hidden flex items-center justify-center">
-                <img 
-                  src="slides/founder.png" 
-                  alt="Zhu Yuanshuang Digital Studio" 
-                  className="w-full h-full object-contain transition-transform duration-[1.2s] hover:scale-102"
-                />
-                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-transparent to-transparent p-6 text-left pointer-events-none">
-                  <div className="text-lg font-heading font-bold text-white/40">
-                    Z-LAB
-                  </div>
-                  <div className="text-[9px] font-mono tracking-widest uppercase mt-1 text-[#9de8cf]">
-                    Science meets Art. (点击放大阅读)
-                  </div>
-                </div>
-              </div>
+              <ProfileCard
+                name="朱元双"
+                title="数字艺术家 / 智能建造专家"
+                handle="yuanshuang.zhu"
+                status="Online"
+                contactText="联系我 / Contact"
+                avatarUrl="slides/founder_avatar.png"
+                showUserInfo={true}
+                enableTilt={true}
+                enableMobileTilt={false}
+                onContactClick={() => {
+                  if (scrollToSection) {
+                    scrollToSection('contact');
+                  } else {
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+                behindGlowEnabled={true}
+                behindGlowColor="rgba(157, 232, 207, 0.45)"
+                innerGradient="linear-gradient(145deg, rgba(20, 24, 22, 0.9) 0%, rgba(157, 232, 207, 0.15) 100%)"
+              />
             </div>
           </div>
         </div>
