@@ -11,6 +11,8 @@ import ProjectArchive from './components/sections/ProjectArchive';
 import FounderSection from './components/sections/FounderSection';
 import ContactSection from './components/sections/ContactSection';
 import { SLIDES } from './slidesData';
+import AudioPlayer from './components/ui/AudioPlayer';
+
 
 const App: React.FC = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
@@ -505,6 +507,9 @@ const App: React.FC = () => {
 
       {/* Floating AI Chat Assistant */}
       <AIChat />
+
+      {/* Floating Background Music Player */}
+      <AudioPlayer />
     </div>
   );
 };
