@@ -1,12 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const pathRef = useRef<SVGPathElement | null>(null);
 
   useEffect(() => {
-    // Attempt to play on user interaction or mount if browser allows
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.play().catch((err) => {
@@ -19,17 +18,57 @@ export default function AudioPlayer() {
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    let animationFrameId: number;
+    let time = 0;
+    let currentAmplitude = isPlaying ? 4.5 : 0;
+
+    const pathElement = pathRef.current;
+    if (!pathElement) return;
+
+    const tick = () => {
+      const targetAmplitude = isPlaying ? 4.5 : 0;
+      // Smoothly interpolate amplitude
+      currentAmplitude += (targetAmplitude - currentAmplitude) * 0.12;
+
+      // Increment time for flowing wave
+      if (isPlaying) {
+        time += 0.08; // speed of the wave flow
+      }
+
+      // Generate the path points
+      const points = [];
+      const steps = 40;
+      for (let i = 0; i <= steps; i++) {
+        const x = 6 + (12 * i) / steps;
+        const normX = i / steps; // 0 to 1
+        const envelope = Math.sin(Math.PI * normX);
+        const wave = Math.sin(1.5 * 2 * Math.PI * normX - time);
+        const y = 12 + currentAmplitude * envelope * wave;
+        points.push(`${x.toFixed(2)} ${y.toFixed(2)}`);
+      }
+      
+      pathElement.setAttribute("d", "M " + points.join(" L "));
+
+      // Continue loop if we are playing or if the transition is still active (amplitude not yet 0)
+      if (isPlaying || currentAmplitude > 0.01) {
+        animationFrameId = requestAnimationFrame(tick);
+      } else {
+        // Hard reset to perfect flat line when animation completes
+        pathElement.setAttribute("d", "M 6 12 L 18 12");
+      }
+    };
+
+    tick();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isPlaying]);
+
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
   };
-
-  // The wavy path is constructed to seamlessly loop when translated horizontally by exactly 12 units.
-  const wavyPath = 
-    "M -12 12 C -10.5 12, -10.5 7, -9 7 C -7.5 7, -7.5 12, -6 12 C -4.5 12, -4.5 17, -3 17 C -1.5 17, -1.5 12, 0 12 C 1.5 12, 1.5 7, 3 7 C 4.5 7, 4.5 12, 6 12 C 7.5 12, 7.5 17, 9 17 C 10.5 17, 10.5 12, 12 12 C 13.5 12, 13.5 7, 15 7 C 16.5 7, 16.5 12, 18 12 C 19.5 12, 19.5 17, 21 17 C 22.5 17, 22.5 12, 24 12 C 25.5 12, 25.5 7, 27 7 C 28.5 7, 28.5 12, 30 12 C 31.5 12, 31.5 17, 33 17 C 34.5 17, 34.5 12, 36 12";
-
-  // The straight path has the exact same number of control points at y=12, enabling smooth Framer Motion morphing.
-  const straightPath = 
-    "M -12 12 C -10.5 12, -10.5 12, -9 12 C -7.5 12, -7.5 12, -6 12 C -4.5 12, -4.5 12, -3 12 C -1.5 12, -1.5 12, 0 12 C 1.5 12, 1.5 12, 3 12 C 4.5 12, 4.5 12, 6 12 C 7.5 12, 7.5 12, 9 12 C 10.5 12, 10.5 12, 12 12 C 13.5 12, 13.5 12, 15 12 C 16.5 12, 16.5 12, 18 12 C 19.5 12, 19.5 12, 21 12 C 22.5 12, 22.5 12, 24 12 C 25.5 12, 25.5 12, 27 12 C 28.5 12, 28.5 12, 30 12 C 31.5 12, 31.5 12, 33 12 C 34.5 12, 34.5 12, 36 12";
 
   return (
     <div className="fixed bottom-4 left-4 md:bottom-6 md:left-6 z-50 flex items-center justify-center pointer-events-auto select-none">
@@ -51,29 +90,15 @@ export default function AudioPlayer() {
           className="w-6 h-6" 
           fill="none" 
           stroke="currentColor" 
-          strokeWidth="2.5" 
+          strokeWidth="2.2" 
           strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <defs>
-            {/* Mask to clip the wave horizontally to mimic the user's screenshots */}
-            <clipPath id="wave-clip-mask">
-              <rect x="7" y="4" width="10" height="16" rx="1.25" ry="1.25" />
-            </clipPath>
-          </defs>
-          <g clipPath="url(#wave-clip-mask)">
-            <motion.path
-              animate={isPlaying ? { x: [0, -12] } : { x: 0 }}
-              transition={isPlaying ? {
-                ease: "linear",
-                duration: 1.5,
-                repeat: Infinity
-              } : {
-                duration: 0.35
-              }}
-              d={isPlaying ? wavyPath : straightPath}
-              className="text-black"
-            />
-          </g>
+          <path
+            ref={pathRef}
+            d="M 6 12 L 18 12"
+            className="stroke-current text-black"
+          />
         </svg>
       </button>
     </div>
