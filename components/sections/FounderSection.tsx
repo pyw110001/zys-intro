@@ -8,7 +8,7 @@ interface FounderSectionProps {
 
 const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick }) => {
   return (
-    <section id="about" className="py-24 md:py-36 border-t border-white/10 px-6 md:px-12">
+    <section id="about" className="py-12 md:py-16 px-6 md:px-12">
       <div className="max-w-7xl mx-auto">
         <SectionLabel num="05" title="Founder" className="mb-16" />
 

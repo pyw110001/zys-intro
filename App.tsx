@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
 import ThreeBackground from './components/ThreeBackground';
@@ -17,39 +17,148 @@ const App: React.FC = () => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [selectedService, setSelectedService] = useState<typeof SERVICES[0] | null>(null);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
   
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', service: '', message: '' });
 
-  // Handle keyboard navigation for slides
+  const isScrolling = useRef(false);
+  const touchStartY = useRef(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Handle keyboard navigation for slides AND full-page scroll hijacking
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowLeft') {
-        setActiveSlideIndex(prev => (prev - 1 + SLIDES.length) % SLIDES.length);
+      // 1. Horizontal slides in slider section (only if current page is slides, which is activeIndex === 3)
+      if (activeIndex === 3 && !isLightboxOpen && !selectedService) {
+        if (e.key === 'ArrowLeft') {
+          setActiveSlideIndex(prev => (prev - 1 + SLIDES.length) % SLIDES.length);
+          return;
+        }
+        if (e.key === 'ArrowRight') {
+          setActiveSlideIndex(prev => (prev + 1) % SLIDES.length);
+          return;
+        }
       }
-      if (e.key === 'ArrowRight') {
-        setActiveSlideIndex(prev => (prev + 1) % SLIDES.length);
+
+      // 2. Global vertical pages navigation
+      if (isScrolling.current || isLightboxOpen || selectedService) return;
+      
+      if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+        e.preventDefault();
+        if (activeIndex < 5) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev + 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
+      }
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        e.preventDefault();
+        if (activeIndex > 0) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev - 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
       }
       if (e.key === 'Escape') {
         setIsLightboxOpen(false);
         setSelectedService(null);
       }
     };
-    window.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown, { passive: false });
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [activeIndex, isLightboxOpen, selectedService]);
+
+  // Track scroll and touch gestures to trigger slide animation
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (isLightboxOpen || selectedService) return;
+      e.preventDefault(); // Lock native browser scroll
+
+      if (isScrolling.current) return;
+
+      const deltaY = e.deltaY;
+      if (Math.abs(deltaY) < 30) return; // filter minor scroll jitter
+
+      if (deltaY > 0) {
+        if (activeIndex < 5) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev + 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
+      } else {
+        if (activeIndex > 0) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev - 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
+      }
+    };
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (isLightboxOpen || selectedService) return;
+      touchStartY.current = e.touches[0].clientY;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (isLightboxOpen || selectedService) return;
+      e.preventDefault(); // Lock touch scroll
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isLightboxOpen || selectedService) return;
+      if (isScrolling.current) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY.current - touchEndY; // swipe up is positive
+
+      if (Math.abs(deltaY) < 50) return; // swipe threshold
+
+      if (deltaY > 0) {
+        if (activeIndex < 5) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev + 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
+      } else {
+        if (activeIndex > 0) {
+          isScrolling.current = true;
+          setActiveIndex(prev => prev - 1);
+          setTimeout(() => { isScrolling.current = false; }, 1000);
+        }
+      }
+    };
+
+    // Attach native non-passive listeners
+    container.addEventListener('wheel', handleWheel, { passive: false });
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: false });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+      container.removeEventListener('touchstart', handleTouchStart);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [activeIndex, isLightboxOpen, selectedService]);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      const headerOffset = 100;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+    const indexMap: Record<string, number> = {
+      'hero': 0,
+      'philosophy': 1,
+      'services': 2,
+      'slides': 3,
+      'about': 4,
+      'contact': 5,
+      'contact-section': 5
+    };
+    const targetIndex = indexMap[id];
+    if (targetIndex !== undefined) {
+      setActiveIndex(targetIndex);
     }
   };
 
@@ -63,99 +172,121 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen text-white selection:bg-[#9de8cf] selection:text-black cursor-auto md:cursor-none overflow-x-hidden">
+    <div 
+      ref={containerRef}
+      className="relative h-screen w-screen overflow-hidden text-white selection:bg-[#9de8cf] selection:text-black cursor-auto md:cursor-none bg-[#050706]"
+    >
       <CustomCursor />
       <ThreeBackground />
       
       {/* Navigation */}
       <NavBar scrollToSection={scrollToSection} />
 
-      {/* Main Content Layout */}
-      <main className="relative z-10">
-        {/* 01 / HERO */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <HeroSection scrollToSection={scrollToSection} />
-        </motion.div>
+      {/* Floating Vertical Navigation Indicators */}
+      <div className="fixed right-6 md:right-12 top-1/2 -translate-y-1/2 z-[40] hidden md:flex flex-col gap-6 select-none mix-blend-difference">
+        {[
+          { id: 'hero', num: '01', name: 'Intro' },
+          { id: 'philosophy', num: '02', name: 'Philosophy' },
+          { id: 'services', num: '03', name: 'Services' },
+          { id: 'slides', num: '04', name: 'Slides' },
+          { id: 'about', num: '05', name: 'Creator' },
+          { id: 'contact-section', num: '06', name: 'Contact' }
+        ].map((item, idx) => {
+          const isActive = activeIndex === idx;
+          return (
+            <button
+              key={item.id}
+              onClick={() => scrollToSection(item.id)}
+              className="group flex items-center justify-end gap-3 text-right bg-transparent border-0 cursor-pointer focus:outline-none"
+              aria-label={`Go to section ${item.name}`}
+            >
+              <span className={`text-[10px] font-mono tracking-widest uppercase transition-all duration-300 ${
+                isActive ? 'text-[#9de8cf] scale-105 opacity-100' : 'text-[#8d928d]/40 opacity-0 group-hover:opacity-100 group-hover:text-white/80'
+              }`}>
+                {item.name}
+              </span>
+              <div className="relative flex items-center justify-center w-3 h-3">
+                <div className={`w-1 h-1 rounded-full transition-all duration-300 ${
+                  isActive ? 'bg-[#9de8cf] scale-150' : 'bg-white/20 group-hover:bg-white/60'
+                }`} />
+                {isActive && (
+                  <motion.div
+                    layoutId="activeDotOutline"
+                    className="absolute inset-0 border border-[#9de8cf] rounded-full scale-125"
+                    transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </div>
+            </button>
+          );
+        })}
+      </div>
 
-        {/* 02 / PHILOSOPHY */}
+      {/* Main Content Layout - JS Scroll Hijacking sliding container */}
+      <main className="relative z-10 w-full h-full">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          animate={{ y: `-${activeIndex * 100}vh` }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full h-full flex flex-col"
         >
-          <PhilosophySection />
-        </motion.div>
+          {/* 01 / HERO */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden">
+            <HeroSection scrollToSection={scrollToSection} />
+          </div>
 
-        {/* 03 / SERVICES */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <ServicesIndex onServiceSelect={(srv) => setSelectedService(srv)} />
-        </motion.div>
+          {/* 02 / PHILOSOPHY */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden border-t border-white/5">
+            <PhilosophySection />
+          </div>
 
-        {/* 04 / PROJECT ARCHIVE */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <ProjectArchive 
-            activeSlideIndex={activeSlideIndex}
-            setActiveSlideIndex={setActiveSlideIndex}
-            setIsLightboxOpen={setIsLightboxOpen}
-          />
-        </motion.div>
+          {/* 03 / SERVICES */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden border-t border-white/5">
+            <ServicesIndex onServiceSelect={(srv) => setSelectedService(srv)} />
+          </div>
 
-        {/* 05 / FOUNDER */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <FounderSection onImageClick={() => { setActiveSlideIndex(0); setIsLightboxOpen(true); }} />
-        </motion.div>
+          {/* 04 / PROJECT ARCHIVE */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden border-t border-white/5">
+            <ProjectArchive 
+              activeSlideIndex={activeSlideIndex}
+              setActiveSlideIndex={setActiveSlideIndex}
+              setIsLightboxOpen={setIsLightboxOpen}
+            />
+          </div>
 
-        {/* 06 / CONTACT */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <ContactSection 
-            formSubmitted={formSubmitted}
-            formData={formData}
-            setFormData={setFormData}
-            onSubmit={handleFormSubmit}
-          />
+          {/* 05 / FOUNDER */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-center relative overflow-hidden border-t border-white/5">
+            <FounderSection onImageClick={() => { setActiveSlideIndex(0); setIsLightboxOpen(true); }} />
+          </div>
+
+          {/* 06 / CONTACT + FOOTER (Combined in one full-screen slide) */}
+          <div className="w-full h-screen flex-shrink-0 flex flex-col justify-between relative overflow-hidden border-t border-white/5 bg-[#080a09]/10">
+            <div className="flex-1 flex flex-col justify-center">
+              <ContactSection 
+                formSubmitted={formSubmitted}
+                formData={formData}
+                setFormData={setFormData}
+                onSubmit={handleFormSubmit}
+              />
+            </div>
+
+            {/* FOOTER */}
+            <footer className="border-t border-white/5 py-8 md:py-12 bg-[#050706]">
+              <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                <div>
+                   <div className="font-heading text-lg font-bold tracking-tight mb-2 text-white">Z-LAB</div>
+                   <p className="text-[10px] font-mono text-[#8d928d] tracking-wider uppercase">
+                     © 2026 朱元双数字艺术与智能建造工作室. All rights reserved.
+                   </p>
+                </div>
+                
+                <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#8d928d] tracking-widest uppercase">
+                  <span className="text-[#9de8cf]">Art meets Science. Built with precision.</span>
+                </div>
+              </div>
+            </footer>
+          </div>
         </motion.div>
       </main>
-
-      {/* FOOTER */}
-      <footer className="relative z-10 border-t border-white/5 py-12 md:py-16 bg-[#050706]">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-8">
-          <div>
-             <div className="font-heading text-lg font-bold tracking-tight mb-4 text-white">Z-LAB</div>
-             <p className="text-[10px] font-mono text-[#8d928d] tracking-wider uppercase">
-               © 2026 朱元双数字艺术与智能建造工作室. All rights reserved.
-             </p>
-          </div>
-          
-          <div className="flex gap-6 md:gap-8 flex-wrap font-mono text-[10px] text-[#8d928d] tracking-widest uppercase">
-            <span className="text-[#9de8cf]">Art meets Science. Built with precision.</span>
-          </div>
-        </div>
-      </footer>
 
       {/* SERVICE DETAIL MODAL (Redesigned for Editorial Look) */}
       <AnimatePresence>
