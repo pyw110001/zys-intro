@@ -33,7 +33,7 @@ const FounderSection: React.FC<FounderSectionProps> = ({ onImageClick, scrollToS
             
             <div className="space-y-8">
               {[
-                { icon: User, title: '专业背景', desc: '同济大学数字实验室背景，深耕3D打印、VR/AR、机器人加工技术、交互装置等。' },
+                { icon: User, title: '专业背景', desc: '深耕3D打印、VR/AR、机器人加工技术、交互装置等。' },
                 { icon: Sparkles, title: '核心技术领域', desc: '新媒体装置艺术、多轴机械臂三维增材制造、实时人脸与运动追踪、AIGC智能体开发。' },
                 { icon: Compass, title: '主创及设计项目', desc: '主持及参与第46届家博会ADD特展、上海国际光影节、南京颐和路互动景观墙等多项国家及国际性重点项目。' },
               ].map((feature, i) => (
