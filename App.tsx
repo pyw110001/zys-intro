@@ -76,7 +76,23 @@ const App: React.FC = () => {
 
     const handleWheel = (e: WheelEvent) => {
       if (isLightboxOpen || selectedService) return;
-      e.preventDefault(); // Lock native browser scroll
+
+      // Enable internal scrolling inside #slides
+      if (activeIndex === 3) {
+        const scrollEl = document.getElementById('slides');
+        if (scrollEl) {
+          const { scrollTop, scrollHeight, clientHeight } = scrollEl;
+          const isAtTop = scrollTop <= 0;
+          const isAtBottom = scrollTop + clientHeight >= scrollHeight - 2;
+
+          if (e.deltaY > 0 && !isAtBottom) return; // Scroll down internally
+          if (e.deltaY < 0 && !isAtTop) return; // Scroll up internally
+          
+          e.preventDefault();
+        }
+      } else {
+        e.preventDefault(); // Lock native browser scroll
+      }
 
       if (isScrolling.current) return;
 
@@ -105,6 +121,22 @@ const App: React.FC = () => {
 
     const handleTouchMove = (e: TouchEvent) => {
       if (isLightboxOpen || selectedService) return;
+      
+      if (activeIndex === 3) {
+        const scrollEl = document.getElementById('slides');
+        if (scrollEl) {
+          const { scrollTop, scrollHeight, clientHeight } = scrollEl;
+          const isAtTop = scrollTop <= 0;
+          const isAtBottom = scrollTop + clientHeight >= scrollHeight - 2;
+          
+          const touchY = e.touches[0].clientY;
+          const deltaY = touchStartY.current - touchY; // swipe up (scroll down) is positive
+          
+          if (deltaY > 0 && !isAtBottom) return; // scroll down internally
+          if (deltaY < 0 && !isAtTop) return; // scroll up internally
+        }
+      }
+      
       e.preventDefault(); // Lock touch scroll
     };
 
@@ -116,6 +148,18 @@ const App: React.FC = () => {
       const deltaY = touchStartY.current - touchEndY; // swipe up is positive
 
       if (Math.abs(deltaY) < 50) return; // swipe threshold
+
+      if (activeIndex === 3) {
+        const scrollEl = document.getElementById('slides');
+        if (scrollEl) {
+          const { scrollTop, scrollHeight, clientHeight } = scrollEl;
+          const isAtTop = scrollTop <= 0;
+          const isAtBottom = scrollTop + clientHeight >= scrollHeight - 2;
+
+          if (deltaY > 0 && !isAtBottom) return; // Still scrolling down internally
+          if (deltaY < 0 && !isAtTop) return; // Still scrolling up internally
+        }
+      }
 
       if (deltaY > 0) {
         if (activeIndex < 5) {
@@ -369,7 +413,7 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Lightbox Zoom Modal (Redesigned for Editorial Look) */}
+      {/* Lightbox Split-View Modal (Image Left, Details Right) */}
       <AnimatePresence>
         {isLightboxOpen && (
           <motion.div
@@ -380,72 +424,81 @@ const App: React.FC = () => {
             className="fixed inset-0 z-[70] bg-[#050706]/98 backdrop-blur-md flex items-center justify-center p-4 md:p-10 cursor-zoom-out select-none"
           >
             <div 
-              className="relative max-w-7xl max-h-[85vh] aspect-video w-full bg-black border border-white/15 overflow-hidden shadow-2xl flex items-center justify-center"
+              className="relative max-w-6xl max-h-[85vh] w-full bg-[#0b1110] border border-white/10 overflow-hidden shadow-2xl grid grid-cols-1 md:grid-cols-12 cursor-auto"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Image */}
-              {SLIDES[activeSlideIndex].images && SLIDES[activeSlideIndex].images!.length > 1 ? (
-                <div className="grid grid-cols-2 gap-3 w-full h-full p-2 bg-[#050706]">
-                  {SLIDES[activeSlideIndex].images!.map((imgUrl, i) => (
-                    <div key={i} className="relative overflow-hidden w-full h-full flex items-center justify-center bg-black/40">
-                      <img
-                        src={imgUrl}
-                        alt={`${SLIDES[activeSlideIndex].title} ${i + 1}`}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <img 
-                  src={SLIDES[activeSlideIndex].image} 
-                  alt={SLIDES[activeSlideIndex].title} 
-                  className="w-full h-full object-contain" 
-                />
-              )}
-              
-              {/* Image metadata overlay */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent p-6 pt-16 pointer-events-none">
-                <div className="flex justify-between items-end">
-                  <div>
-                    <span className="text-[#9de8cf] font-mono text-[9px] tracking-widest uppercase mb-1.5 block">Slide {SLIDES[activeSlideIndex].num}</span>
-                    <h3 className="text-lg md:text-xl font-heading font-bold text-white uppercase tracking-tight">{SLIDES[activeSlideIndex].title}</h3>
+              {/* Left Column: Image(s) */}
+              <div className="md:col-span-7 bg-[#050706] p-4 flex items-center justify-center min-h-[300px] md:min-h-0 select-none">
+                {SLIDES[activeSlideIndex].images && SLIDES[activeSlideIndex].images!.length > 1 ? (
+                  <div className="grid grid-cols-2 gap-3 w-full h-full bg-black/10">
+                    {SLIDES[activeSlideIndex].images!.map((imgUrl, i) => (
+                      <div key={i} className="relative overflow-hidden w-full h-full flex items-center justify-center bg-black/40">
+                        <img
+                          src={imgUrl}
+                          alt={`${SLIDES[activeSlideIndex].title} ${i + 1}`}
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
+                    ))}
                   </div>
-                  <span className="text-[10px] font-mono text-[#8d928d] tracking-wider">{activeSlideIndex + 1} / {SLIDES.length}</span>
-                </div>
+                ) : (
+                  <img 
+                    src={SLIDES[activeSlideIndex].image} 
+                    alt={SLIDES[activeSlideIndex].title} 
+                    className="w-full h-full object-contain" 
+                  />
+                )}
               </div>
 
-              {/* Close Button */}
-              <button
-                onClick={() => setIsLightboxOpen(false)}
-                className="absolute top-4 right-4 z-20 p-2.5 bg-black/60 text-white/60 hover:text-white border border-white/10 hover:border-white/30 transition-all cursor-pointer"
-                data-hover="true"
-                data-cursor-text="CLOSE"
-                aria-label="Close Lightbox"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              {/* Right Column: Slide Text Details */}
+              <div className="md:col-span-5 bg-[#0b1110] p-6 md:p-8 flex flex-col justify-between border-t md:border-t-0 md:border-l border-white/10 max-h-[40vh] md:max-h-[85vh] overflow-y-auto">
+                <div className="overflow-y-auto scrollbar-thin pr-2 text-left">
+                  <div className="flex justify-between items-center mb-4 border-b border-white/5 pb-3">
+                    <span className="text-[#9de8cf] font-mono text-[10px] tracking-widest uppercase">Slide {SLIDES[activeSlideIndex].num}</span>
+                    <span className="text-[10px] font-mono text-[#8d928d] tracking-wider">{activeSlideIndex + 1} / {SLIDES.length}</span>
+                  </div>
+                  <h3 className="text-xl font-heading font-bold text-white uppercase tracking-tight mb-4">
+                    {SLIDES[activeSlideIndex].title}
+                  </h3>
+                  <div className="text-[#8d928d] font-light text-xs leading-relaxed whitespace-pre-wrap">
+                    {SLIDES[activeSlideIndex].content
+                      .replace(/^#(.*)$/m, '') // Remove first H1 title from body to avoid repeating
+                      .replace(/---$/, '') // Remove dashes
+                      .trim()}
+                  </div>
+                </div>
 
-              {/* Navigation */}
-              <button
-                onClick={(e) => { e.stopPropagation(); setActiveSlideIndex(prev => (prev - 1 + SLIDES.length) % SLIDES.length); }}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/60 text-white/60 hover:text-white border border-white/10 hover:border-white/30 transition-all cursor-pointer"
-                data-hover="true"
-                data-cursor-text="PREV"
-                aria-label="Previous Slide"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
+                <div className="mt-6 border-t border-white/5 pt-4 flex justify-between items-center">
+                  {/* Prev / Next buttons inside the modal footer */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setActiveSlideIndex(prev => (prev - 1 + SLIDES.length) % SLIDES.length); }}
+                      className="border border-white/10 p-2.5 text-white/60 hover:text-white hover:border-white/30 transition-all cursor-pointer"
+                      aria-label="Previous Slide"
+                      data-hover="true"
+                      data-cursor-text="PREV"
+                    >
+                      <ChevronLeft className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setActiveSlideIndex(prev => (prev + 1) % SLIDES.length); }}
+                      className="border border-white/10 p-2.5 text-white/60 hover:text-white hover:border-white/30 transition-all cursor-pointer"
+                      aria-label="Next Slide"
+                      data-hover="true"
+                      data-cursor-text="NEXT"
+                    >
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
 
-              <button
-                onClick={(e) => { e.stopPropagation(); setActiveSlideIndex(prev => (prev + 1) % SLIDES.length); }}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-black/60 text-white/60 hover:text-white border border-white/10 hover:border-white/30 transition-all cursor-pointer"
-                data-hover="true"
-                data-cursor-text="NEXT"
-                aria-label="Next Slide"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
+                  <button 
+                    onClick={() => setIsLightboxOpen(false)}
+                    className="border border-[#9de8cf]/30 text-[#9de8cf] px-5 py-2 text-xs font-mono tracking-widest uppercase hover:bg-[#9de8cf] hover:text-black transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
