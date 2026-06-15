@@ -30,7 +30,19 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
   };
 
   return (
-    <section id="hero" className="relative h-[100svh] min-h-[650px] flex items-center px-6 md:px-12 pt-20">
+    <section id="hero" className="relative h-[100svh] min-h-[650px] flex items-center px-6 md:px-12 pt-20 overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        src="./videos/bg_segment_1.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      {/* Dark Overlay for readability */}
+      <div className="absolute inset-0 bg-black/65 z-0 pointer-events-none" />
+
       <motion.div
         variants={containerVariants}
         initial="hidden"

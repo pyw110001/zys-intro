@@ -3,8 +3,20 @@ import SectionLabel from '../ui/SectionLabel';
 
 const PhilosophySection: React.FC = () => {
   return (
-    <section id="philosophy" className="py-12 md:py-16 px-6 md:px-12">
-      <div className="max-w-7xl mx-auto">
+    <section id="philosophy" className="relative w-full h-full flex items-center px-6 md:px-12 overflow-hidden">
+      {/* Background Video */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
+        src="./videos/bg_segment_2.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+      />
+      {/* Dark Overlay for readability */}
+      <div className="absolute inset-0 bg-black/65 z-0 pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto w-full relative z-10">
         <SectionLabel num="02" title="Philosophy" className="mb-12" />
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
