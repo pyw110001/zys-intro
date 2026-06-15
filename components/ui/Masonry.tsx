@@ -62,6 +62,7 @@ export interface MasonryProps {
   hoverScale?: number;
   blurToFocus?: boolean;
   colorShiftOnHover?: boolean;
+  isActive?: boolean;
   onItemClick: (slide: any) => void;
 }
 
@@ -75,6 +76,7 @@ const Masonry: React.FC<MasonryProps> = ({
   hoverScale = 0.95,
   blurToFocus = true,
   colorShiftOnHover = false,
+  isActive = true,
   onItemClick
 }) => {
   const columns = useMedia(
@@ -139,48 +141,75 @@ const Masonry: React.FC<MasonryProps> = ({
     return { grid: positionedItems, maxHeight: Math.max(...colHeights) };
   }, [columns, items, width]);
 
-  const hasMounted = useRef(false);
+  const animatedItems = useRef<Set<string>>(new Set());
+
+  // Reset animations when section becomes inactive
+  useEffect(() => {
+    if (!isActive) {
+      animatedItems.current.clear();
+      // Instantly hide all items
+      items.forEach(item => {
+        const el = document.querySelector(`[data-key="${item.id}"]`);
+        if (el) {
+          gsap.set(el, { opacity: 0 });
+        }
+      });
+    }
+  }, [isActive, items]);
 
   useLayoutEffect(() => {
-    if (!imagesReady) return;
+    if (!imagesReady || !isActive) return;
 
     grid.forEach((item, index) => {
       const selector = `[data-key="${item.id}"]`;
       const animProps = { x: item.x, y: item.y, width: item.w, height: item.h };
 
-      if (!hasMounted.current) {
+      if (!animatedItems.current.has(item.id)) {
         const start = getInitialPosition(item);
         gsap.fromTo(
           selector,
           {
             opacity: 0,
             x: start.x,
-            y: start.y,
+            y: start.y + 80, // Float up by 80px
             width: item.w,
             height: item.h,
+            scale: 0.9,
             ...(blurToFocus && { filter: 'blur(10px)' })
           },
           {
             opacity: 1,
-            ...animProps,
+            x: item.x,
+            y: item.y,
+            width: item.w,
+            height: item.h,
+            scale: 1,
             ...(blurToFocus && { filter: 'blur(0px)' }),
             duration: 0.8,
             ease: 'power3.out',
             delay: index * stagger
           }
         );
+        animatedItems.current.add(item.id);
       } else {
         gsap.to(selector, {
           ...animProps,
           duration,
           ease,
+          scale: 1,
           overwrite: 'auto'
         });
       }
     });
 
-    hasMounted.current = true;
-  }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease]);
+    // Clean up unmounted IDs
+    const currentIds = new Set(grid.map(i => i.id));
+    animatedItems.current.forEach(id => {
+      if (!currentIds.has(id)) {
+        animatedItems.current.delete(id);
+      }
+    });
+  }, [grid, imagesReady, isActive, stagger, animateFrom, blurToFocus, duration, ease]);
 
   const handleMouseEnter = (id: string, element: HTMLDivElement) => {
     if (scaleOnHover) {

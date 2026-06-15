@@ -294,6 +294,7 @@ const App: React.FC = () => {
               activeSlideIndex={activeSlideIndex}
               setActiveSlideIndex={setActiveSlideIndex}
               setIsLightboxOpen={setIsLightboxOpen}
+              isActive={activeIndex === 3}
             />
           </div>
 
