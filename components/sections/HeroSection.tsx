@@ -30,7 +30,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
   };
 
   return (
-    <section id="hero" className="relative h-[100svh] min-h-[650px] flex items-center px-6 md:px-12 pt-20 snap-start snap-always">
+    <section id="hero" className="relative h-[100svh] min-h-[650px] flex items-center px-6 md:px-12 pt-20">
       <motion.div
         variants={containerVariants}
         initial="hidden"

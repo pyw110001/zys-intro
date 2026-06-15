@@ -8,8 +8,6 @@
     scroll-padding-top: 100px;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    height: 100%;
-    overflow: hidden;
   }
 
   ::-webkit-scrollbar {
@@ -20,8 +18,7 @@
     font-family: 'Space Grotesk', sans-serif;
     background-color: #050706;
     color: #f3f0e8;
-    overflow: hidden;
-    height: 100%;
+    overflow-x: hidden;
   }
 
   h1,

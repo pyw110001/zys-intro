@@ -26,7 +26,7 @@ const ProjectArchive: React.FC<ProjectArchiveProps> = ({
   };
 
   return (
-    <section id="slides" className="min-h-screen flex flex-col justify-center border-t border-white/10 px-6 md:px-12 bg-[#080a09]/20 backdrop-blur-md snap-start snap-always">
+    <section id="slides" className="py-24 md:py-36 border-t border-white/10 px-6 md:px-12 bg-[#080a09]/20 backdrop-blur-md">
       <div className="max-w-7xl mx-auto">
         <SectionLabel num="04" title="Project Archive" className="mb-16" />
 
