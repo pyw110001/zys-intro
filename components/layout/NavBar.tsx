@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import ASCIIText from '../ui/ASCIIText';
 
 interface NavBarProps {
   scrollToSection: (id: string) => void;
@@ -26,11 +27,16 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
       <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 md:px-12 py-6 mix-blend-difference bg-transparent select-none">
         <div 
           onClick={() => handleItemClick('hero')} 
-          className="font-heading text-lg font-bold tracking-tight text-white cursor-pointer z-50"
+          className="relative w-28 h-10 cursor-pointer z-50 flex items-center justify-start"
           data-hover="true"
           data-cursor-text="Z-LAB"
         >
-          Z-LAB
+          <ASCIIText
+            text="Z-LAB"
+            asciiFontSize={5}
+            textFontSize={150}
+            enableWaves={true}
+          />
         </div>
         
         {/* Desktop Menu */}
