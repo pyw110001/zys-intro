@@ -13,7 +13,7 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
 
   const navItems = [
     { name: '核心业务', id: 'services' },
-    { name: '演示文稿', id: 'slides' },
+    { name: 'SHOWCASE', id: 'slides' },
     { name: '主创介绍', id: 'about' },
     { name: '业务合作', id: 'contact' }
   ];

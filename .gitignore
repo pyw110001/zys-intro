@@ -26,3 +26,8 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Ignore all mp4 files except web-optimized background segments
+*.mp4
+!public/videos/bg_segment_*.mp4
+

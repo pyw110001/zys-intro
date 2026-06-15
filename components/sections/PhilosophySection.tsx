@@ -127,7 +127,7 @@ const PhilosophySection: React.FC = () => {
       {/* Background Video */}
       <video
         className="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
-        src="./videos/bg_segment_2.mp4"
+        src="./videos/bg_segment_4.mp4"
         autoPlay
         loop
         muted
