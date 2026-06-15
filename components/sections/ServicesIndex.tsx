@@ -8,8 +8,8 @@ import ThreeBackground from '../ThreeBackground';
 export const SERVICES = [
   {
     id: '3d-print',
-    title: '机器人3D打印',
-    subtitle: 'Robotic 3D Printing',
+    title: '智能建造',
+    subtitle: 'Robotic Fabrication',
     icon: Printer,
     color: 'teal',
     image: 'slides/核心业务缩略图/智能制造.png',

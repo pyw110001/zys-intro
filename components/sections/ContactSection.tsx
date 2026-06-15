@@ -113,7 +113,7 @@ const ContactSection: React.FC<ContactSectionProps> = ({
                     className="w-full bg-transparent border-b border-white/10 py-3 text-sm text-white focus:outline-none focus:border-white transition-colors cursor-pointer appearance-none rounded-none"
                   >
                     <option value="" disabled className="bg-[#0a0a0a]">请选择合作方向</option>
-                    <option value="3d-printing" className="bg-[#0a0a0a]">机器人3D打印建造</option>
+                    <option value="3d-printing" className="bg-[#0a0a0a]">智能建造</option>
                     <option value="interactive-art" className="bg-[#0a0a0a]">新媒体多媒体交互装置</option>
                     <option value="sandbox" className="bg-[#0a0a0a]">AR增强现实数字沙盘</option>
                     <option value="digital-life" className="bg-[#0a0a0a]">AIGC与专属数字生命</option>

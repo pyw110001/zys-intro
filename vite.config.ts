@@ -11,7 +11,7 @@ Founder & studio leader:
 - Expertise: VR/AR, robotic 3D printing, interactive installations, robotic machining, AIGC, and digital humans.
 
 Core services:
-1. 机器人3D打印: large-scale additive manufacturing with multi-axis robotic arms and ASA/PC composite materials.
+1. 智能建造: large-scale additive manufacturing with multi-axis robotic arms and ASA/PC composite materials.
 2. 新媒体交互装置: real-time visual effects, projection, sensing, face/body tracking, and immersive installations.
 3. AR增强现实沙盘: digital twin planning presentations that combine physical sandbox models with virtual spatial data.
 4. AIGC与数字生命: customized digital humans, LLM assistants, AI customer service, and content automation.

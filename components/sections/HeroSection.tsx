@@ -224,7 +224,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
             variants={itemVariants}
             className="text-xs md:text-sm text-[#7d8187] font-light max-w-xl leading-relaxed mb-10 tracking-wide"
           >
-            数字艺术与智能建造工作室，在新媒体交互、机器人3D打印、AR增强现实沙盘与AIGC数字生命之间构建跨媒介空间体验。
+            数字艺术与智能建造工作室，在智能建造、新媒体交互、AR增强现实沙盘与AIGC数字生命之间构建跨媒介空间体验。
           </motion.p>
           
           <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
