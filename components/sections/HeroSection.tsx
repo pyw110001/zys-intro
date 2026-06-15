@@ -148,9 +148,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
     <section 
       id="hero" 
       ref={sectionRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className="relative h-[100svh] min-h-[650px] flex items-center px-6 md:px-12 pt-20 overflow-hidden"
     >
       {/* Background Video */}
@@ -193,7 +190,13 @@ const HeroSection: React.FC<HeroSectionProps> = ({ scrollToSection }) => {
           <SectionLabel num="01" title="Hero" className="mb-8" />
           
           {/* Headline Wrap (Double layer for text clipping/magnification) */}
-          <div className="mb-8 relative w-full select-none">
+          <div 
+            id="hero-headline"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+            className="mb-8 relative w-full select-none"
+          >
             {/* Base Layer (Muted outer text) */}
             <h1 className="text-[11vw] md:text-[6.5vw] font-heading font-bold leading-[0.9] tracking-tighter uppercase">
               <span className="block text-white/75">Z-LAB</span>

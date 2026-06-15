@@ -21,7 +21,7 @@ const CustomCursor: React.FC = () => {
       mouseY.set(e.clientY);
 
       const target = e.target as HTMLElement;
-      setIsInsideHero(!!target?.closest('#hero'));
+      setIsInsideHero(!!target?.closest('#hero-headline'));
 
       const clickable = target?.closest('button') || 
                         target?.closest('a') || 
