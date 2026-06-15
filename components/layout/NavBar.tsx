@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import ASCIIText from '../ui/ASCIIText';
+import GradientText from '../ui/GradientText';
 
 interface NavBarProps {
   scrollToSection: (id: string) => void;
@@ -27,16 +27,18 @@ const NavBar: React.FC<NavBarProps> = ({ scrollToSection }) => {
       <nav className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 md:px-12 py-6 mix-blend-difference bg-transparent select-none">
         <div 
           onClick={() => handleItemClick('hero')} 
-          className="relative w-28 h-10 cursor-pointer z-50 flex items-center justify-start"
+          className="relative cursor-pointer z-50 flex items-center justify-start"
           data-hover="true"
           data-cursor-text="Z-LAB"
         >
-          <ASCIIText
-            text="Z-LAB"
-            asciiFontSize={5}
-            textFontSize={150}
-            enableWaves={true}
-          />
+          <GradientText
+            colors={["#ff7a17", "#ffffff", "#ff7a17", "#ffffff", "#ff7a17"]}
+            animationSpeed={4}
+            showBorder={false}
+            className="text-xl md:text-2xl font-extrabold font-heading tracking-widest uppercase bg-transparent p-0 m-0"
+          >
+            Z-LAB
+          </GradientText>
         </div>
         
         {/* Desktop Menu */}
